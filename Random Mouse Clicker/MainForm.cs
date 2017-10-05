@@ -19,6 +19,8 @@ namespace Random_Mouse_Clicker
         private Random random = new Random();
         private bool widthNotZero;
         private bool heightNotZero;
+        private decimal[] minMax = new decimal[2];
+        private readonly Hotkey hotkey = new Hotkey();
 
         public MainForm()
         {
@@ -26,7 +28,7 @@ namespace Random_Mouse_Clicker
 
             originalFormWidth = this.Width;
             originalFormHeight = this.Height;
-            comboBoxClickEveryMin.SelectedIndex = 1;
+            comboBoxClickEvery.SelectedIndex = 1;
             comboBoxDuration.SelectedIndex = 0;
 
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
@@ -34,7 +36,7 @@ namespace Random_Mouse_Clicker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            RegisterHotKey();
         }
         
         private void selectAreaButton_Click(object sender, EventArgs e)
@@ -52,7 +54,120 @@ namespace Random_Mouse_Clicker
 
          location = new Point(random.Next(x1,x2), random.Next(y1, y2));
          checkMouseSpeed(location);
-         //MouseActions.MouseClick();
+         checkClickInterval(comboBoxClickEvery, numericClickEveryMin.Value, numericClickEveryMax.Value);
+         checkManualOrAutomatic();
+
+        }
+
+        private void checkManualOrAutomatic()
+        {
+            int x1 = SnippingTool.getDrawnRectangle().X;
+            int x2 = SnippingTool.getDrawnRectangle().X + SnippingTool.getRectangleWidth();
+            int y1 = SnippingTool.getDrawnRectangle().Y;
+            int y2 = SnippingTool.getDrawnRectangle().Y + SnippingTool.getRectangleHeight();
+
+            if (radioEndManually.Checked)
+            {
+                ShowBalloonMessage("Press CTRL+WIN+ESC to exit the program...", "Random Mouse Clicker");
+                this.WindowState = FormWindowState.Minimized;
+
+                new Thread(delegate () {
+
+                    while (true)
+                    {
+                        location = new Point(random.Next(x1, x2), random.Next(y1, y2));
+                        checkMouseSpeed(location);
+                        MouseActions.MouseClick();
+                        Thread.Sleep(random.Next((int)minMax[0], (int)minMax[1]));
+                    }
+
+                }).Start();               
+            }
+
+            else if (radioEndAutomatically.Checked)
+            {
+                decimal duration = checkClickDuration(comboBoxDuration, numericDuration.Value);
+
+                if (duration != 0)
+                {
+
+                }
+            }
+        }
+
+        private decimal[] checkClickInterval(ComboBox comboBox, decimal min, decimal max)
+        {                  
+            if (comboBox.Text == "millisecond(s)")
+            {
+                minMax[0] = min;
+                minMax[1] = max;
+            }
+
+            else if (comboBox.Text == "second(s)")
+            {
+                minMax[0] = min * 1000;
+                minMax[1] = max * 1000;
+            }
+
+            else if(comboBox.Text == "minute(s)")
+            {
+                minMax[0] = min * 1000 * 60;
+                minMax[1] = max * 1000 * 60;
+            }
+
+            else if(comboBox.Text == "hour(s)")
+            {
+                minMax[0] = min * 1000 * 60 * 60;
+                minMax[1] = max * 1000 * 60 * 60;
+            }
+
+            else if(comboBox.Text == "day(s)")
+            {
+                minMax[0] = min * 1000 * 60 * 60 * 24;
+                minMax[1] = max * 1000 * 60 * 60 * 24;
+            }
+
+            return minMax;
+        }
+
+        private decimal checkClickDuration(ComboBox comboBox, decimal duration)
+        {
+            if (comboBox.Text == "click(s)")
+            {
+                for (int i = 0; i < duration; i++)
+                {
+
+                }
+
+                return 0;
+            }
+
+            else if (comboBox.Text == "millisecond(s)")
+            {
+                return duration;
+            }
+
+            else if (comboBox.Text == "second(s)")
+            {
+                return duration * 1000;
+            }
+
+            else if (comboBox.Text == "minute(s)")
+            {
+                return duration * 1000 * 60;
+            }
+
+            else if (comboBox.Text == "hour(s)")
+            {
+                return duration * 1000 * 60 * 60;
+            }
+
+            else if (comboBox.Text == "day(s)")
+            {
+                return duration * 1000 * 60 * 60 * 24;
+            }
+
+            return 0;
         }
 
         private void checkMouseSpeed(Point location)
@@ -62,17 +177,17 @@ namespace Random_Mouse_Clicker
                 MouseLinearSmoothMove.slow(location);
             }
 
-            if (radioNormal.Checked)
+            else if (radioNormal.Checked)
             {
                 MouseLinearSmoothMove.normal(location);
             }
 
-            if (radioFast.Checked)
+            else if (radioFast.Checked)
             {
                 MouseLinearSmoothMove.fast(location);
             }
 
-            if (radioInstant.Checked)
+            else if (radioInstant.Checked)
             {
                 MouseLinearSmoothMove.instant(location);
             }
@@ -210,5 +325,57 @@ namespace Random_Mouse_Clicker
         {
             numericDuration.Value = updateTotalClicksDisplay();
         }
+
+        private void ShowBalloonMessage(string text, string title)
+        {
+            notifyIcon.BalloonTipText = text;
+            notifyIcon.BalloonTipTitle = title;
+            notifyIcon.ShowBalloonTip(1000);
+        }
+
+        private void RegisterHotKey()
+        {
+            hotkey.Control = true;
+            hotkey.Windows = true;
+            hotkey.KeyCode = Keys.Escape;
+            
+            hotkey.Pressed += Hk_Win_ESC_OnPressed;
+
+            if (!hotkey.GetCanRegister(this))
+            {
+                Console.WriteLine("Already registered");
+            }
+            else
+            {
+                hotkey.Register(this);
+            }
+        }
+
+        private void Hk_Win_ESC_OnPressed(object sender, HandledEventArgs handledEventArgs)
+        {
+            Exit();
+        }
+
+        private void UnregisterHotkey()
+        {
+            if (hotkey.Registered)
+            {
+                hotkey.Unregister();
+            }
+        }
+
+        private void menuExit_Click_1(object sender, EventArgs e)
+        {
+            Exit();
+        }
+
+        private void Exit()
+        {
+            notifyIcon.Visible = false;
+            notifyIcon.Dispose();
+            UnregisterHotkey();
+            Application.Exit();
+            Environment.Exit(0);
+        }       
     }
 }

@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonDrawArea = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
-            this.comboBoxClickEveryMin = new System.Windows.Forms.ComboBox();
+            this.comboBoxClickEvery = new System.Windows.Forms.ComboBox();
             this.numericClickEveryMin = new System.Windows.Forms.NumericUpDown();
             this.labelClickEvery = new System.Windows.Forms.Label();
             this.radioEndManually = new System.Windows.Forms.RadioButton();
@@ -44,6 +45,10 @@
             this.radioNormal = new System.Windows.Forms.RadioButton();
             this.radioSlow = new System.Windows.Forms.RadioButton();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+            this.labelOf = new System.Windows.Forms.Label();
+            this.comboBoxDividedAreas = new System.Windows.Forms.ComboBox();
+            this.labelClickEachTimes = new System.Windows.Forms.Label();
+            this.labelClickEachArea = new System.Windows.Forms.Label();
             this.numericClickEachArea = new System.Windows.Forms.NumericUpDown();
             this.numericDivideIntoEqualAreas = new System.Windows.Forms.NumericUpDown();
             this.checkBoxDivideInto = new System.Windows.Forms.CheckBox();
@@ -60,10 +65,9 @@
             this.tabPreview = new System.Windows.Forms.TabPage();
             this.labelPreviewInstructions = new System.Windows.Forms.Label();
             this.previewPictureBox = new System.Windows.Forms.PictureBox();
-            this.labelClickEachArea = new System.Windows.Forms.Label();
-            this.labelClickEachTimes = new System.Windows.Forms.Label();
-            this.comboBoxDividedAreas = new System.Windows.Forms.ComboBox();
-            this.labelOf = new System.Windows.Forms.Label();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMin)).BeginInit();
             this.groupBoxMouseMovement.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
@@ -76,6 +80,7 @@
             this.tabAdvanced.SuspendLayout();
             this.tabPreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).BeginInit();
+            this.notifyMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonDrawArea
@@ -101,21 +106,21 @@
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // comboBoxClickEveryMin
+            // comboBoxClickEvery
             // 
-            this.comboBoxClickEveryMin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxClickEveryMin.DropDownWidth = 75;
-            this.comboBoxClickEveryMin.FormattingEnabled = true;
-            this.comboBoxClickEveryMin.Items.AddRange(new object[] {
+            this.comboBoxClickEvery.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxClickEvery.DropDownWidth = 75;
+            this.comboBoxClickEvery.FormattingEnabled = true;
+            this.comboBoxClickEvery.Items.AddRange(new object[] {
             "millisecond(s)",
             "second(s)",
             "minute(s)",
             "hour(s)",
             "day(s)"});
-            this.comboBoxClickEveryMin.Location = new System.Drawing.Point(120, 92);
-            this.comboBoxClickEveryMin.Name = "comboBoxClickEveryMin";
-            this.comboBoxClickEveryMin.Size = new System.Drawing.Size(93, 21);
-            this.comboBoxClickEveryMin.TabIndex = 4;
+            this.comboBoxClickEvery.Location = new System.Drawing.Point(120, 92);
+            this.comboBoxClickEvery.Name = "comboBoxClickEvery";
+            this.comboBoxClickEvery.Size = new System.Drawing.Size(93, 21);
+            this.comboBoxClickEvery.TabIndex = 4;
             // 
             // numericClickEveryMin
             // 
@@ -153,10 +158,10 @@
             this.radioEndManually.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioEndManually.Location = new System.Drawing.Point(43, 125);
             this.radioEndManually.Name = "radioEndManually";
-            this.radioEndManually.Size = new System.Drawing.Size(101, 30);
+            this.radioEndManually.Size = new System.Drawing.Size(128, 30);
             this.radioEndManually.TabIndex = 8;
             this.radioEndManually.TabStop = true;
-            this.radioEndManually.Text = "End Manually\r\n(ESC key)";
+            this.radioEndManually.Text = "End Manually\r\n(CTRL+WIN+ESC)";
             this.toolTip1.SetToolTip(this.radioEndManually, "Stop the program manually");
             this.radioEndManually.UseVisualStyleBackColor = true;
             this.radioEndManually.CheckedChanged += new System.EventHandler(this.endManuallyRadio_CheckedChanged);
@@ -257,6 +262,52 @@
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
             this.toolTip1.SetToolTip(this.groupBoxOptions, "Divide your drawn area into sub-areas");
+            // 
+            // labelOf
+            // 
+            this.labelOf.AutoSize = true;
+            this.labelOf.Enabled = false;
+            this.labelOf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOf.Location = new System.Drawing.Point(72, 50);
+            this.labelOf.Name = "labelOf";
+            this.labelOf.Size = new System.Drawing.Size(18, 13);
+            this.labelOf.TabIndex = 13;
+            this.labelOf.Text = "of";
+            this.toolTip1.SetToolTip(this.labelOf, "Set the time between clicks");
+            // 
+            // comboBoxDividedAreas
+            // 
+            this.comboBoxDividedAreas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDividedAreas.Enabled = false;
+            this.comboBoxDividedAreas.FormattingEnabled = true;
+            this.comboBoxDividedAreas.Location = new System.Drawing.Point(97, 47);
+            this.comboBoxDividedAreas.Name = "comboBoxDividedAreas";
+            this.comboBoxDividedAreas.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDividedAreas.TabIndex = 12;
+            // 
+            // labelClickEachTimes
+            // 
+            this.labelClickEachTimes.AutoSize = true;
+            this.labelClickEachTimes.Enabled = false;
+            this.labelClickEachTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClickEachTimes.Location = new System.Drawing.Point(225, 81);
+            this.labelClickEachTimes.Name = "labelClickEachTimes";
+            this.labelClickEachTimes.Size = new System.Drawing.Size(44, 13);
+            this.labelClickEachTimes.TabIndex = 11;
+            this.labelClickEachTimes.Text = "time(s)";
+            this.toolTip1.SetToolTip(this.labelClickEachTimes, "Set the time between clicks");
+            // 
+            // labelClickEachArea
+            // 
+            this.labelClickEachArea.AutoSize = true;
+            this.labelClickEachArea.Enabled = false;
+            this.labelClickEachArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClickEachArea.Location = new System.Drawing.Point(16, 81);
+            this.labelClickEachArea.Name = "labelClickEachArea";
+            this.labelClickEachArea.Size = new System.Drawing.Size(96, 13);
+            this.labelClickEachArea.TabIndex = 10;
+            this.labelClickEachArea.Text = "Click each area";
+            this.toolTip1.SetToolTip(this.labelClickEachArea, "Set the time between clicks");
             // 
             // numericClickEachArea
             // 
@@ -395,7 +446,7 @@
             this.tabBasic.Controls.Add(this.labelAfter);
             this.tabBasic.Controls.Add(this.buttonStart);
             this.tabBasic.Controls.Add(this.numericDuration);
-            this.tabBasic.Controls.Add(this.comboBoxClickEveryMin);
+            this.tabBasic.Controls.Add(this.comboBoxClickEvery);
             this.tabBasic.Controls.Add(this.comboBoxDuration);
             this.tabBasic.Controls.Add(this.numericClickEveryMin);
             this.tabBasic.Controls.Add(this.groupBoxDuration);
@@ -494,51 +545,27 @@
             this.previewPictureBox.TabStop = false;
             this.previewPictureBox.Visible = false;
             // 
-            // labelClickEachArea
+            // notifyIcon
             // 
-            this.labelClickEachArea.AutoSize = true;
-            this.labelClickEachArea.Enabled = false;
-            this.labelClickEachArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClickEachArea.Location = new System.Drawing.Point(16, 81);
-            this.labelClickEachArea.Name = "labelClickEachArea";
-            this.labelClickEachArea.Size = new System.Drawing.Size(96, 13);
-            this.labelClickEachArea.TabIndex = 10;
-            this.labelClickEachArea.Text = "Click each area";
-            this.toolTip1.SetToolTip(this.labelClickEachArea, "Set the time between clicks");
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.ContextMenuStrip = this.notifyMenu;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Random Mouse Clicker";
+            this.notifyIcon.Visible = true;
             // 
-            // labelClickEachTimes
+            // notifyMenu
             // 
-            this.labelClickEachTimes.AutoSize = true;
-            this.labelClickEachTimes.Enabled = false;
-            this.labelClickEachTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClickEachTimes.Location = new System.Drawing.Point(225, 81);
-            this.labelClickEachTimes.Name = "labelClickEachTimes";
-            this.labelClickEachTimes.Size = new System.Drawing.Size(44, 13);
-            this.labelClickEachTimes.TabIndex = 11;
-            this.labelClickEachTimes.Text = "time(s)";
-            this.toolTip1.SetToolTip(this.labelClickEachTimes, "Set the time between clicks");
+            this.notifyMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuExit});
+            this.notifyMenu.Name = "notifyMenu";
+            this.notifyMenu.Size = new System.Drawing.Size(93, 26);
             // 
-            // comboBoxDividedAreas
+            // menuExit
             // 
-            this.comboBoxDividedAreas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDividedAreas.Enabled = false;
-            this.comboBoxDividedAreas.FormattingEnabled = true;
-            this.comboBoxDividedAreas.Location = new System.Drawing.Point(97, 47);
-            this.comboBoxDividedAreas.Name = "comboBoxDividedAreas";
-            this.comboBoxDividedAreas.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxDividedAreas.TabIndex = 12;
-            // 
-            // labelOf
-            // 
-            this.labelOf.AutoSize = true;
-            this.labelOf.Enabled = false;
-            this.labelOf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOf.Location = new System.Drawing.Point(72, 50);
-            this.labelOf.Name = "labelOf";
-            this.labelOf.Size = new System.Drawing.Size(18, 13);
-            this.labelOf.TabIndex = 13;
-            this.labelOf.Text = "of";
-            this.toolTip1.SetToolTip(this.labelOf, "Set the time between clicks");
+            this.menuExit.Name = "menuExit";
+            this.menuExit.Size = new System.Drawing.Size(92, 22);
+            this.menuExit.Text = "Exit";
+            this.menuExit.Click += new System.EventHandler(this.menuExit_Click_1);
             // 
             // MainForm
             // 
@@ -568,6 +595,7 @@
             this.tabPreview.ResumeLayout(false);
             this.tabPreview.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).EndInit();
+            this.notifyMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -576,7 +604,7 @@
 
         private System.Windows.Forms.Button buttonDrawArea;
         private System.Windows.Forms.Button buttonStart;
-        private System.Windows.Forms.ComboBox comboBoxClickEveryMin;
+        private System.Windows.Forms.ComboBox comboBoxClickEvery;
         private System.Windows.Forms.NumericUpDown numericClickEveryMin;
         private System.Windows.Forms.Label labelClickEvery;
         private System.Windows.Forms.RadioButton radioEndManually;
@@ -609,6 +637,9 @@
         private System.Windows.Forms.Label labelClickEachArea;
         private System.Windows.Forms.ComboBox comboBoxDividedAreas;
         private System.Windows.Forms.Label labelOf;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip notifyMenu;
+        private System.Windows.Forms.ToolStripMenuItem menuExit;
     }
 }
 

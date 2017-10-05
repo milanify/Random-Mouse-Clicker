@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceInfo.cs" />
+    <Compile Include="HotKey.cs" />
     <Compile Include="ImageSplitter.cs" />
     <Compile Include="MouseLinearSmoothMove.cs" />
     <Compile Include="MainForm.cs">
