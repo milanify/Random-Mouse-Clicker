@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,10 @@ namespace Random_Mouse_Clicker
         private bool heightNotZero;
         private decimal[] minMax = new decimal[2];
         private readonly Hotkey hotkey = new Hotkey();
+        private int x1;
+        private int x2;
+        private int y1;
+        private int y2;
 
         public MainForm()
         {
@@ -47,52 +52,90 @@ namespace Random_Mouse_Clicker
 
         private void startButton_Click(object sender, EventArgs e)
         {
-         int x1 = SnippingTool.getDrawnRectangle().X;
-         int x2 = SnippingTool.getDrawnRectangle().X + SnippingTool.getRectangleWidth();
-         int y1 = SnippingTool.getDrawnRectangle().Y;
-         int y2 = SnippingTool.getDrawnRectangle().Y + SnippingTool.getRectangleHeight();
+         x1 = SnippingTool.getDrawnRectangle().X;
+         x2 = SnippingTool.getDrawnRectangle().X + SnippingTool.getRectangleWidth();
+         y1 = SnippingTool.getDrawnRectangle().Y;
+         y2 = SnippingTool.getDrawnRectangle().Y + SnippingTool.getRectangleHeight();
 
-         location = new Point(random.Next(x1,x2), random.Next(y1, y2));
-         checkMouseSpeed(location);
          checkClickInterval(comboBoxClickEvery, numericClickEveryMin.Value, numericClickEveryMax.Value);
          checkManualOrAutomatic();
+        }
 
+        private void randomizeLocationAndClick()
+        {
+            location = new Point(random.Next(x1, x2), random.Next(y1, y2));
+            checkMouseSpeed(location);
+            MouseActions.MouseClick();
+            Thread.Sleep(random.Next((int)minMax[0], (int)minMax[1]));
         }
 
         private void checkManualOrAutomatic()
         {
-            int x1 = SnippingTool.getDrawnRectangle().X;
-            int x2 = SnippingTool.getDrawnRectangle().X + SnippingTool.getRectangleWidth();
-            int y1 = SnippingTool.getDrawnRectangle().Y;
-            int y2 = SnippingTool.getDrawnRectangle().Y + SnippingTool.getRectangleHeight();
-
             if (radioEndManually.Checked)
             {
                 ShowBalloonMessage("Press CTRL+WIN+ESC to exit the program...", "Random Mouse Clicker");
                 this.WindowState = FormWindowState.Minimized;
-
-                new Thread(delegate () {
-
-                    while (true)
-                    {
-                        location = new Point(random.Next(x1, x2), random.Next(y1, y2));
-                        checkMouseSpeed(location);
-                        MouseActions.MouseClick();
-                        Thread.Sleep(random.Next((int)minMax[0], (int)minMax[1]));
-                    }
-
-                }).Start();               
+                clickUntilManuallyEnded();
             }
 
             else if (radioEndAutomatically.Checked)
             {
                 decimal duration = checkClickDuration(comboBoxDuration, numericDuration.Value);
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                ShowBalloonMessage("Program will end after " + numericDuration.Value + " " + comboBoxDuration.Text + " or when CTRL+WIN+ESC is pressed" +
+                    "...", "Random Mouse Clicker");
+                this.WindowState = FormWindowState.Minimized;
 
                 if (duration != 0)
                 {
-
+                    clickUntilAutomaticallyEnded(duration, stopwatch);
                 }
             }
+        }
+
+        private void clickUntilManuallyEnded()
+        {
+            new Thread(delegate () {
+
+                while (true)
+                {
+                    randomizeLocationAndClick();
+                }
+
+            }).Start();
+        }
+
+        private void clickUntilAutomaticallyEnded(decimal duration, Stopwatch stopwatch)
+        {
+            new Thread(delegate () {
+
+                while (true)
+                {
+                    if (stopwatch.ElapsedMilliseconds > duration)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        randomizeLocationAndClick();
+                    }
+                }
+
+            }).Start();
+        }
+
+        private void clickUntilDurationrReached(decimal duration)
+        {
+            new Thread(delegate () {
+
+                for (int i = 0; i < duration; i++)
+                {
+                    randomizeLocationAndClick();
+                }
+
+            }).Start();
         }
 
         private decimal[] checkClickInterval(ComboBox comboBox, decimal min, decimal max)
@@ -109,19 +152,19 @@ namespace Random_Mouse_Clicker
                 minMax[1] = max * 1000;
             }
 
-            else if(comboBox.Text == "minute(s)")
+            else if (comboBox.Text == "minute(s)")
             {
                 minMax[0] = min * 1000 * 60;
                 minMax[1] = max * 1000 * 60;
             }
 
-            else if(comboBox.Text == "hour(s)")
+            else if (comboBox.Text == "hour(s)")
             {
                 minMax[0] = min * 1000 * 60 * 60;
                 minMax[1] = max * 1000 * 60 * 60;
             }
 
-            else if(comboBox.Text == "day(s)")
+            else if (comboBox.Text == "day(s)")
             {
                 minMax[0] = min * 1000 * 60 * 60 * 24;
                 minMax[1] = max * 1000 * 60 * 60 * 24;
@@ -134,11 +177,7 @@ namespace Random_Mouse_Clicker
         {
             if (comboBox.Text == "click(s)")
             {
-                for (int i = 0; i < duration; i++)
-                {
-
-                }
-
+                clickUntilDurationrReached(duration);
                 return 0;
             }
 
@@ -249,6 +288,7 @@ namespace Random_Mouse_Clicker
                     this.Height = SnippingTool.Image.Height + (this.Height - tabControl1.Height) + 25;
                 }
 
+                ImageSplitter.drawSplitImage(comboBoxDividedAreas.SelectedIndex, numericDivideIntoEqualAreas.Value);
                 previewPictureBox.Image = SnippingTool.Image;
             }
         }
