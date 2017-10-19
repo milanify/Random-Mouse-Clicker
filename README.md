@@ -4,7 +4,7 @@ Windows form application that randomly auto-clicks within a user defined area
 
 
 ## Current Version: 1.0
-[Download the exe file here](https://github.com/milan102/Random-Mouse-Clicker/blob/master/v1.0%20release/Random%20Mouse%20Clicker.exe)
+[Download the exe file here](https://sourceforge.net/projects/random-mouse-clicker/files/)
 
 ## Known Issues
 - Only works on your main monitor, you are able to draw anywhere using the snipping tool but the mouse movement and clicking will only happen on your primary monitor
