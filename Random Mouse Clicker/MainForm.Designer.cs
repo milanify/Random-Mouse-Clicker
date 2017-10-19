@@ -575,6 +575,7 @@
             this.ClientSize = new System.Drawing.Size(334, 312);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Random Mouse Clicker";
             this.Load += new System.EventHandler(this.Form1_Load);
