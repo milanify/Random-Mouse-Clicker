@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿//Original from: https://stackoverflow.com/questions/913646/c-sharp-moving-the-mouse-around-realistically
+
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 

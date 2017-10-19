@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Original from: https://github.com/thepirat000/Snipping-Ocr
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;

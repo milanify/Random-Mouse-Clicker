@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Original from http://pinvoke.net/default.aspx/user32.mouse_event
+
+using System;
 using System.Threading;
 using System.Runtime.InteropServices;
 

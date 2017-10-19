@@ -1,4 +1,5 @@
 ﻿//Original from: https://bloggablea.wordpress.com/2007/05/01/global-hotkeys-with-net/
+
 using System;
 using System.Windows.Forms;
 using System.ComponentModel;
