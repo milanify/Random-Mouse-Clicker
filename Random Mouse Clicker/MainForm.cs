@@ -18,10 +18,12 @@ namespace Random_Mouse_Clicker
         private bool heightNotZero;
         private int displayedWidth;
         private int displayedHeight;
+        private Point monitorOffset;
         private static Point location;
         private int originalFormWidth;
         private int originalFormHeight;
         private Random random = new Random();
+        private Action<Point> moveAtMouseSpeed;
         private decimal[] minMax = new decimal[2];
         private readonly Hotkey hotkey = new Hotkey();
 
@@ -65,7 +67,8 @@ namespace Random_Mouse_Clicker
          * x1 and x2 are the upper left and right corner
          * x1 and x2 are the lower left and right corner
          * checkClickInterval runs to see the time between clicks
-         * checkManualOrAutomatic runs to see how the program will end
+         * Checks mouse speed function needed and stores the method to a variable
+         * runManualOrAutomatic runs to see how the program will end
          * */
         private void startButton_Click(object sender, EventArgs e)
         {
@@ -75,7 +78,8 @@ namespace Random_Mouse_Clicker
             y2 = SnippingTool.getDrawnRectangle().Y + SnippingTool.getRectangleHeight();
 
             checkClickInterval(comboBoxClickEvery, numericClickEveryMin.Value, numericClickEveryMax.Value);
-            checkManualOrAutomatic();
+            moveAtMouseSpeed = checkMouseSpeed();
+            runManualOrAutomatic();
         }
 
         /**
@@ -116,6 +120,33 @@ namespace Random_Mouse_Clicker
         }
 
         /**
+         * Checks what the mouse speed is set to
+         * Returns the function that should be ran
+         * */
+        private Action<Point> checkMouseSpeed()
+        {
+            if (radioSlow.Checked)
+            {
+                return MouseLinearSmoothMove.slow;
+            }
+
+            else if (radioNormal.Checked)
+            {
+                return MouseLinearSmoothMove.normal;
+            }
+
+            else if (radioFast.Checked)
+            {
+                return MouseLinearSmoothMove.fast;
+            }
+
+            else
+            {
+                return MouseLinearSmoothMove.instant;
+            }
+        }
+
+        /**
          * For manual, program will only stop when user presses CTRL+WIN+ESC
          * Minimizes form so window is not in the way
          * Performs clicking operations
@@ -125,7 +156,7 @@ namespace Random_Mouse_Clicker
          * If the duration is not zero, will begin clicking
          * The checkClickDuration method will return 0 if being automatically ended by a certain number of clicks, rather than a numeric amount of time
          * */
-        private void checkManualOrAutomatic()
+        private void runManualOrAutomatic()
         {
             if (radioEndManually.Checked)
             {
@@ -148,6 +179,24 @@ namespace Random_Mouse_Clicker
                 {
                     clickUntilAutomaticallyEnded(duration, stopwatch);
                 }
+            }
+        }
+
+        /**
+         * Checks if snip was completed on another monitor besides the main one
+         * Windows sees monitor names as \\.\DISPLAY1, \\.\DISPLAY2, \\.\DISPLAY3, etc.
+         * Have to add an extra backslash before each backslash in the name as an escape character
+         * Currently not used, but is kept for possible future updates
+         * */
+        private bool checkMultiMonitor()
+        {
+            if (SnippingTool.monitorName == "\\\\.\\DISPLAY1")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
@@ -199,6 +248,7 @@ namespace Random_Mouse_Clicker
          * */
         private void clickUntilManuallyEnded()
         {
+
             new Thread(delegate () {
 
                 while (true)
@@ -221,6 +271,7 @@ namespace Random_Mouse_Clicker
                 {
                     if (stopwatch.ElapsedMilliseconds > duration)
                     {
+                        ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
                         break;
                     }
                     else
@@ -234,13 +285,19 @@ namespace Random_Mouse_Clicker
         
         /**
          * Randomizes the x,y coordinates and sets the location to within the user's selection
-         * Checks the speed that the mouse should move to the location, and does so
-         * Clicks once at the specified location
+         * Adds monitor offset if clicking at a secondary monitor
+         * Moves mouse at specified speed
+         * Clicks once at the location
          * */
         private void randomizeLocationAndClick()
         {
+            monitorOffset = SnippingTool.clickingScreen.Bounds.Location;
+
             location = new Point(random.Next(x1, x2), random.Next(y1, y2));
-            checkMouseSpeedAndMove(location);
+            location.X = location.X + monitorOffset.X;
+            location.Y = location.Y + monitorOffset.Y;
+
+            moveAtMouseSpeed(location);
             clickAndWait();
         }
 
@@ -248,11 +305,14 @@ namespace Random_Mouse_Clicker
          * Randomizes the x,y coordinates and sets the location to within the user's selection
          * Only randomizes within each specified area
          * For all of the pairs of x coordinates, randomizes for all pairs of y coordinates so that each area is clicked
-         * Checks the speed that the mouse should move to the location, and does so
-         * Clicks once at the specified location
+         * Adds monitor offset if clicking at a secondary monitor
+         * Moves mouse at specified speed
+         * Clicks once at the location
          * */
         private void randomizeLocationAndClickEachArea()
         {
+            monitorOffset = SnippingTool.clickingScreen.Bounds.Location;
+
             for (int i = 0; i < ImageSplitter.xCoordinates.Count - 1; i++)
             {
                 for (int j = 0; j < ImageSplitter.yCoordinates.Count - 1; j++)
@@ -260,37 +320,13 @@ namespace Random_Mouse_Clicker
                     location = new Point(random.Next(x1 + ImageSplitter.xCoordinates[i], x1 + ImageSplitter.xCoordinates[i + 1]),
                         random.Next(y1 + ImageSplitter.yCoordinates[j], y1 + ImageSplitter.yCoordinates[j + 1]));
 
-                    checkMouseSpeedAndMove(location);
+                    location.X = location.X + monitorOffset.X;
+                    location.Y = location.Y + monitorOffset.Y;
+
+                    moveAtMouseSpeed(location);
                     clickAndWait();
                 }             
             }          
-        }
-
-        /**
-         * Checks what the mouse speed is set to
-         * Runs method that moves mouse to the location at the specified speed
-         * */
-        private void checkMouseSpeedAndMove(Point location)
-        {
-            if (radioSlow.Checked)
-            {
-                MouseLinearSmoothMove.slow(location);
-            }
-
-            else if (radioNormal.Checked)
-            {
-                MouseLinearSmoothMove.normal(location);
-            }
-
-            else if (radioFast.Checked)
-            {
-                MouseLinearSmoothMove.fast(location);
-            }
-
-            else if (radioInstant.Checked)
-            {
-                MouseLinearSmoothMove.instant(location);
-            }
         }
 
         /**
@@ -335,6 +371,8 @@ namespace Random_Mouse_Clicker
                     randomizeLocationAndClick();                 
                 }
 
+                ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
+
             }).Start();
         }
 
@@ -349,6 +387,8 @@ namespace Random_Mouse_Clicker
                 {
                     randomizeLocationAndClickEachArea();
                 }
+
+                ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
 
             }).Start();
         }            
@@ -627,6 +667,6 @@ namespace Random_Mouse_Clicker
             UnregisterHotkey();
             Application.Exit();
             Environment.Exit(0);
-        }       
+        }
     }
 }

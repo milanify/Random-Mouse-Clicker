@@ -13,6 +13,8 @@ namespace Random_Mouse_Clicker
         public static event EventHandler Cancel;
         public static event EventHandler AreaSelected;
         public static Image Image { get; set; }
+        public static Screen clickingScreen;
+        public static String monitorName;
         #endregion
 
         #region Private members
@@ -142,6 +144,16 @@ namespace Random_Mouse_Clicker
                     new Rectangle(0, 0, Image.Width, Image.Height),
                     new Rectangle((int)(rectSelection.X * hScale), (int)(rectSelection.Y * vScale), (int)(rectSelection.Width * hScale), (int)(rectSelection.Height * vScale)),
                     GraphicsUnit.Pixel);
+            }
+
+            //Save which screen and the monitor name that the snip was completed on
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                if (screen.Bounds.Contains(this.Location))
+                {
+                    clickingScreen = screen;
+                    monitorName = screen.DeviceName;
+                }                
             }
 
             CloseForms();
