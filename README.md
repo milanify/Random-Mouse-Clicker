@@ -9,7 +9,7 @@ Windows form application that randomly auto-clicks within a user defined area
 ## Known Issues
 - Only works on your main monitor, you are able to draw anywhere using the snipping tool but the mouse movement and clicking will only happen on your primary monitor
 
-## Features 
+## Features
 - Draw an area similar to Snipping Tool
 - Select time between clicks
 - End manually or automatically
@@ -17,7 +17,9 @@ Windows form application that randomly auto-clicks within a user defined area
 - Can divide region into smaller areas for targeted clicking
 - Set mouse movement speed
 
-## Screenshots
-![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/sample%20images/sample1.png)
-![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/sample%20images/sample2.png)
-![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/sample%20images/sample3.png)
+## Preview
+![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/preview/clickdemo.gif)
+
+![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/preview/sample1.png)
+![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/preview/sample2.png)
+![alt tag](https://github.com/milan102/Random-Mouse-Clicker/blob/master/preview/sample3.png)
