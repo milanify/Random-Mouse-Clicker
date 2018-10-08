@@ -396,10 +396,23 @@ namespace Random_Mouse_Clicker
         /**
          * When choosing to end manually, disable the automatic duration form components
          * */
-
         private void endManuallyRadio_CheckedChanged(object sender, EventArgs e)
         {
             setAutomaticDuration(false);
+        }
+
+        /**
+         * On right click, open up a user-defined hotkey dialog
+         * */
+        private void endManuallyRadio_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                var form = new HotkeyPopupForm();
+                form.Show(this); // if you need non-modal window
+                Console.WriteLine("Right clicked");
+
+            }
         }
 
         /**
@@ -629,10 +642,11 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * When hotkey is pressed, exits program
+         * When hotkey is pressed, exits program and open a new instance of it
          * */
         private void Hk_Win_ESC_OnPressed(object sender, HandledEventArgs handledEventArgs)
         {
+            Application.Restart();
             Exit();
         }
 

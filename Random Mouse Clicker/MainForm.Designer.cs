@@ -89,7 +89,7 @@
             this.buttonDrawArea.Name = "buttonDrawArea";
             this.buttonDrawArea.Size = new System.Drawing.Size(124, 23);
             this.buttonDrawArea.TabIndex = 0;
-            this.buttonDrawArea.Text = "Draw Clicking Area";
+            this.buttonDrawArea.Text = "Draw clicking area";
             this.toolTip1.SetToolTip(this.buttonDrawArea, "Draw the area to click within");
             this.buttonDrawArea.UseVisualStyleBackColor = true;
             this.buttonDrawArea.Click += new System.EventHandler(this.selectAreaButton_Click);
@@ -146,9 +146,9 @@
             this.labelClickEvery.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClickEvery.Location = new System.Drawing.Point(45, 48);
             this.labelClickEvery.Name = "labelClickEvery";
-            this.labelClickEvery.Size = new System.Drawing.Size(71, 13);
+            this.labelClickEvery.Size = new System.Drawing.Size(70, 13);
             this.labelClickEvery.TabIndex = 6;
-            this.labelClickEvery.Text = "Click Every";
+            this.labelClickEvery.Text = "Click every";
             this.toolTip1.SetToolTip(this.labelClickEvery, "Set the time between clicks");
             // 
             // radioEndManually
@@ -161,10 +161,11 @@
             this.radioEndManually.Size = new System.Drawing.Size(128, 30);
             this.radioEndManually.TabIndex = 8;
             this.radioEndManually.TabStop = true;
-            this.radioEndManually.Text = "End Manually\r\n(CTRL+WIN+ESC)";
+            this.radioEndManually.Text = "End manually\r\n(CTRL+WIN+ESC)";
             this.toolTip1.SetToolTip(this.radioEndManually, "Stop the program manually");
             this.radioEndManually.UseVisualStyleBackColor = true;
             this.radioEndManually.CheckedChanged += new System.EventHandler(this.endManuallyRadio_CheckedChanged);
+            this.radioEndManually.MouseUp += new System.Windows.Forms.MouseEventHandler(this.endManuallyRadio_MouseUp);
             // 
             // radioEndAutomatically
             // 
@@ -172,9 +173,9 @@
             this.radioEndAutomatically.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioEndAutomatically.Location = new System.Drawing.Point(176, 132);
             this.radioEndAutomatically.Name = "radioEndAutomatically";
-            this.radioEndAutomatically.Size = new System.Drawing.Size(126, 17);
+            this.radioEndAutomatically.Size = new System.Drawing.Size(125, 17);
             this.radioEndAutomatically.TabIndex = 9;
-            this.radioEndAutomatically.Text = "End Automatically";
+            this.radioEndAutomatically.Text = "End automatically";
             this.toolTip1.SetToolTip(this.radioEndAutomatically, "Stop the program when finished");
             this.radioEndAutomatically.UseVisualStyleBackColor = true;
             this.radioEndAutomatically.CheckedChanged += new System.EventHandler(this.endAutomaticallyRadio_CheckedChanged);
@@ -201,7 +202,7 @@
             this.groupBoxMouseMovement.Size = new System.Drawing.Size(299, 78);
             this.groupBoxMouseMovement.TabIndex = 3;
             this.groupBoxMouseMovement.TabStop = false;
-            this.groupBoxMouseMovement.Text = "Mouse Movement";
+            this.groupBoxMouseMovement.Text = "Mouse movement";
             this.toolTip1.SetToolTip(this.groupBoxMouseMovement, "Set the mouse movement speed");
             // 
             // radioInstant
@@ -255,9 +256,9 @@
             this.groupBoxOptions.Controls.Add(this.numericClickEachArea);
             this.groupBoxOptions.Controls.Add(this.numericDivideIntoEqualAreas);
             this.groupBoxOptions.Controls.Add(this.checkBoxDivideInto);
-            this.groupBoxOptions.Location = new System.Drawing.Point(19, 61);
+            this.groupBoxOptions.Location = new System.Drawing.Point(19, 45);
             this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Size = new System.Drawing.Size(299, 113);
+            this.groupBoxOptions.Size = new System.Drawing.Size(299, 129);
             this.groupBoxOptions.TabIndex = 2;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
@@ -268,7 +269,7 @@
             this.labelOf.AutoSize = true;
             this.labelOf.Enabled = false;
             this.labelOf.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOf.Location = new System.Drawing.Point(72, 50);
+            this.labelOf.Location = new System.Drawing.Point(94, 62);
             this.labelOf.Name = "labelOf";
             this.labelOf.Size = new System.Drawing.Size(18, 13);
             this.labelOf.TabIndex = 13;
@@ -280,9 +281,9 @@
             this.comboBoxDividedAreas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDividedAreas.Enabled = false;
             this.comboBoxDividedAreas.FormattingEnabled = true;
-            this.comboBoxDividedAreas.Location = new System.Drawing.Point(97, 47);
+            this.comboBoxDividedAreas.Location = new System.Drawing.Point(118, 59);
             this.comboBoxDividedAreas.Name = "comboBoxDividedAreas";
-            this.comboBoxDividedAreas.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDividedAreas.Size = new System.Drawing.Size(87, 21);
             this.comboBoxDividedAreas.TabIndex = 12;
             // 
             // labelClickEachTimes
@@ -290,7 +291,7 @@
             this.labelClickEachTimes.AutoSize = true;
             this.labelClickEachTimes.Enabled = false;
             this.labelClickEachTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClickEachTimes.Location = new System.Drawing.Point(225, 81);
+            this.labelClickEachTimes.Location = new System.Drawing.Point(209, 92);
             this.labelClickEachTimes.Name = "labelClickEachTimes";
             this.labelClickEachTimes.Size = new System.Drawing.Size(44, 13);
             this.labelClickEachTimes.TabIndex = 11;
@@ -302,7 +303,7 @@
             this.labelClickEachArea.AutoSize = true;
             this.labelClickEachArea.Enabled = false;
             this.labelClickEachArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClickEachArea.Location = new System.Drawing.Point(16, 81);
+            this.labelClickEachArea.Location = new System.Drawing.Point(16, 92);
             this.labelClickEachArea.Name = "labelClickEachArea";
             this.labelClickEachArea.Size = new System.Drawing.Size(96, 13);
             this.labelClickEachArea.TabIndex = 10;
@@ -312,14 +313,14 @@
             // numericClickEachArea
             // 
             this.numericClickEachArea.Enabled = false;
-            this.numericClickEachArea.Location = new System.Drawing.Point(118, 79);
+            this.numericClickEachArea.Location = new System.Drawing.Point(118, 90);
             this.numericClickEachArea.Maximum = new decimal(new int[] {
             -2147483648,
             0,
             0,
             0});
             this.numericClickEachArea.Name = "numericClickEachArea";
-            this.numericClickEachArea.Size = new System.Drawing.Size(100, 20);
+            this.numericClickEachArea.Size = new System.Drawing.Size(87, 20);
             this.numericClickEachArea.TabIndex = 9;
             this.numericClickEachArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericClickEachArea.Value = new decimal(new int[] {
@@ -332,7 +333,7 @@
             // numericDivideIntoEqualAreas
             // 
             this.numericDivideIntoEqualAreas.Enabled = false;
-            this.numericDivideIntoEqualAreas.Location = new System.Drawing.Point(105, 18);
+            this.numericDivideIntoEqualAreas.Location = new System.Drawing.Point(118, 30);
             this.numericDivideIntoEqualAreas.Maximum = new decimal(new int[] {
             -2147483648,
             0,
@@ -344,7 +345,7 @@
             0,
             0});
             this.numericDivideIntoEqualAreas.Name = "numericDivideIntoEqualAreas";
-            this.numericDivideIntoEqualAreas.Size = new System.Drawing.Size(100, 20);
+            this.numericDivideIntoEqualAreas.Size = new System.Drawing.Size(87, 20);
             this.numericDivideIntoEqualAreas.TabIndex = 6;
             this.numericDivideIntoEqualAreas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericDivideIntoEqualAreas.Value = new decimal(new int[] {
@@ -359,11 +360,11 @@
             this.checkBoxDivideInto.AutoSize = true;
             this.checkBoxDivideInto.Enabled = false;
             this.checkBoxDivideInto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDivideInto.Location = new System.Drawing.Point(19, 19);
+            this.checkBoxDivideInto.Location = new System.Drawing.Point(26, 30);
             this.checkBoxDivideInto.Name = "checkBoxDivideInto";
-            this.checkBoxDivideInto.Size = new System.Drawing.Size(265, 17);
+            this.checkBoxDivideInto.Size = new System.Drawing.Size(261, 17);
             this.checkBoxDivideInto.TabIndex = 1;
-            this.checkBoxDivideInto.Text = "Divide into                            equal areas";
+            this.checkBoxDivideInto.Text = "Divide into                           equal areas";
             this.checkBoxDivideInto.UseVisualStyleBackColor = true;
             this.checkBoxDivideInto.CheckedChanged += new System.EventHandler(this.divideIntoEqualAreasCheckbox_CheckedChanged);
             // 
@@ -507,7 +508,7 @@
             // 
             this.labelWidthHeight.AutoSize = true;
             this.labelWidthHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWidthHeight.Location = new System.Drawing.Point(69, 19);
+            this.labelWidthHeight.Location = new System.Drawing.Point(69, 12);
             this.labelWidthHeight.Name = "labelWidthHeight";
             this.labelWidthHeight.Size = new System.Drawing.Size(189, 30);
             this.labelWidthHeight.TabIndex = 0;
