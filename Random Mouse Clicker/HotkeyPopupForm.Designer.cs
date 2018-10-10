@@ -52,7 +52,7 @@
             this.Name = "HotkeyPopupForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Customizable shortcuts";
+            this.Text = "Customizable settings";
             this.ResumeLayout(false);
             this.PerformLayout();
 

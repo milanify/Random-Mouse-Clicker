@@ -402,20 +402,6 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * On right click, open up a user-defined hotkey dialog
-         * */
-        private void endManuallyRadio_MouseUp(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Right)
-            {
-                var form = new HotkeyPopupForm();
-                form.Show(this); // if you need non-modal window
-                Console.WriteLine("Right clicked");
-
-            }
-        }
-
-        /**
          * When choosing to end automatically, enable the automatic duration form components
          * */
         private void endAutomaticallyRadio_CheckedChanged(object sender, EventArgs e)
@@ -618,6 +604,12 @@ namespace Random_Mouse_Clicker
             notifyIcon.BalloonTipText = text;
             notifyIcon.BalloonTipTitle = title;
             notifyIcon.ShowBalloonTip(1000);
+        }
+
+        private void linkLabelCustomize_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var form = new HotkeyPopupForm();
+            form.Show(this); // if you need non-modal window
         }
 
         /**
