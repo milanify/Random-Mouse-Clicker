@@ -52,15 +52,15 @@
             this.numericDivideIntoEqualAreas = new System.Windows.Forms.NumericUpDown();
             this.checkBoxDivideInto = new System.Windows.Forms.CheckBox();
             this.labelTo = new System.Windows.Forms.Label();
+            this.groupBoxClickEvery = new System.Windows.Forms.GroupBox();
+            this.numericClickEveryMax = new System.Windows.Forms.NumericUpDown();
+            this.linkLabelCustomize = new System.Windows.Forms.LinkLabel();
             this.numericDuration = new System.Windows.Forms.NumericUpDown();
             this.comboBoxDuration = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabBasic = new System.Windows.Forms.TabPage();
-            this.groupBoxClickEvery = new System.Windows.Forms.GroupBox();
-            this.numericClickEveryMax = new System.Windows.Forms.NumericUpDown();
             this.labelCannotBeChanged = new System.Windows.Forms.Label();
             this.tabAdvanced = new System.Windows.Forms.TabPage();
-            this.linkLabelCustomize = new System.Windows.Forms.LinkLabel();
             this.labelWidthHeight = new System.Windows.Forms.Label();
             this.tabPreview = new System.Windows.Forms.TabPage();
             this.labelPreviewInstructions = new System.Windows.Forms.Label();
@@ -73,11 +73,11 @@
             this.groupBoxOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericClickEachArea)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericDivideIntoEqualAreas)).BeginInit();
+            this.groupBoxClickEvery.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericDuration)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
-            this.groupBoxClickEvery.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMax)).BeginInit();
             this.tabAdvanced.SuspendLayout();
             this.tabPreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).BeginInit();
@@ -128,6 +128,11 @@
             this.numericClickEveryMin.Location = new System.Drawing.Point(15, 23);
             this.numericClickEveryMin.Maximum = new decimal(new int[] {
             -2147483648,
+            0,
+            0,
+            0});
+            this.numericClickEveryMin.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -186,7 +191,7 @@
             this.groupBoxMouseMovement.Controls.Add(this.radioFast);
             this.groupBoxMouseMovement.Controls.Add(this.radioNormal);
             this.groupBoxMouseMovement.Controls.Add(this.radioSlow);
-            this.groupBoxMouseMovement.Location = new System.Drawing.Point(19, 187);
+            this.groupBoxMouseMovement.Location = new System.Drawing.Point(13, 187);
             this.groupBoxMouseMovement.Name = "groupBoxMouseMovement";
             this.groupBoxMouseMovement.Size = new System.Drawing.Size(299, 78);
             this.groupBoxMouseMovement.TabIndex = 3;
@@ -245,7 +250,7 @@
             this.groupBoxOptions.Controls.Add(this.numericClickEachArea);
             this.groupBoxOptions.Controls.Add(this.numericDivideIntoEqualAreas);
             this.groupBoxOptions.Controls.Add(this.checkBoxDivideInto);
-            this.groupBoxOptions.Location = new System.Drawing.Point(19, 45);
+            this.groupBoxOptions.Location = new System.Drawing.Point(13, 45);
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.Size = new System.Drawing.Size(299, 129);
             this.groupBoxOptions.TabIndex = 2;
@@ -305,6 +310,11 @@
             this.numericClickEachArea.Location = new System.Drawing.Point(118, 90);
             this.numericClickEachArea.Maximum = new decimal(new int[] {
             -2147483648,
+            0,
+            0,
+            0});
+            this.numericClickEachArea.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -368,12 +378,66 @@
             this.labelTo.Text = "to";
             this.toolTip1.SetToolTip(this.labelTo, "Set the time between clicks");
             // 
+            // groupBoxClickEvery
+            // 
+            this.groupBoxClickEvery.Controls.Add(this.labelTo);
+            this.groupBoxClickEvery.Controls.Add(this.numericClickEveryMin);
+            this.groupBoxClickEvery.Controls.Add(this.numericClickEveryMax);
+            this.groupBoxClickEvery.Controls.Add(this.comboBoxClickEvery);
+            this.groupBoxClickEvery.Location = new System.Drawing.Point(29, 43);
+            this.groupBoxClickEvery.Name = "groupBoxClickEvery";
+            this.groupBoxClickEvery.Size = new System.Drawing.Size(273, 86);
+            this.groupBoxClickEvery.TabIndex = 18;
+            this.groupBoxClickEvery.TabStop = false;
+            this.groupBoxClickEvery.Text = "Click every";
+            this.toolTip1.SetToolTip(this.groupBoxClickEvery, "How frequently to click");
+            // 
+            // numericClickEveryMax
+            // 
+            this.numericClickEveryMax.Location = new System.Drawing.Point(156, 23);
+            this.numericClickEveryMax.Maximum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            0});
+            this.numericClickEveryMax.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericClickEveryMax.Name = "numericClickEveryMax";
+            this.numericClickEveryMax.Size = new System.Drawing.Size(100, 20);
+            this.numericClickEveryMax.TabIndex = 16;
+            this.numericClickEveryMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericClickEveryMax.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // linkLabelCustomize
+            // 
+            this.linkLabelCustomize.AutoSize = true;
+            this.linkLabelCustomize.Location = new System.Drawing.Point(217, 270);
+            this.linkLabelCustomize.Name = "linkLabelCustomize";
+            this.linkLabelCustomize.Size = new System.Drawing.Size(95, 13);
+            this.linkLabelCustomize.TabIndex = 4;
+            this.linkLabelCustomize.TabStop = true;
+            this.linkLabelCustomize.Text = "Customize defaults";
+            this.toolTip1.SetToolTip(this.linkLabelCustomize, "Change the program settings");
+            this.linkLabelCustomize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomize_LinkClicked);
+            // 
             // numericDuration
             // 
             this.numericDuration.Enabled = false;
             this.numericDuration.Location = new System.Drawing.Point(62, 206);
             this.numericDuration.Maximum = new decimal(new int[] {
             -2147483648,
+            0,
+            0,
+            0});
+            this.numericDuration.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -436,37 +500,6 @@
             this.tabBasic.Text = "Basic";
             this.tabBasic.UseVisualStyleBackColor = true;
             // 
-            // groupBoxClickEvery
-            // 
-            this.groupBoxClickEvery.Controls.Add(this.labelTo);
-            this.groupBoxClickEvery.Controls.Add(this.numericClickEveryMin);
-            this.groupBoxClickEvery.Controls.Add(this.numericClickEveryMax);
-            this.groupBoxClickEvery.Controls.Add(this.comboBoxClickEvery);
-            this.groupBoxClickEvery.Location = new System.Drawing.Point(29, 43);
-            this.groupBoxClickEvery.Name = "groupBoxClickEvery";
-            this.groupBoxClickEvery.Size = new System.Drawing.Size(273, 86);
-            this.groupBoxClickEvery.TabIndex = 18;
-            this.groupBoxClickEvery.TabStop = false;
-            this.groupBoxClickEvery.Text = "Click every";
-            // 
-            // numericClickEveryMax
-            // 
-            this.numericClickEveryMax.Location = new System.Drawing.Point(156, 23);
-            this.numericClickEveryMax.Maximum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            0});
-            this.numericClickEveryMax.Name = "numericClickEveryMax";
-            this.numericClickEveryMax.Size = new System.Drawing.Size(100, 20);
-            this.numericClickEveryMax.TabIndex = 16;
-            this.numericClickEveryMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericClickEveryMax.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
             // labelCannotBeChanged
             // 
             this.labelCannotBeChanged.AutoSize = true;
@@ -491,17 +524,6 @@
             this.tabAdvanced.TabIndex = 1;
             this.tabAdvanced.Text = "Advanced";
             this.tabAdvanced.UseVisualStyleBackColor = true;
-            // 
-            // linkLabelCustomize
-            // 
-            this.linkLabelCustomize.AutoSize = true;
-            this.linkLabelCustomize.Location = new System.Drawing.Point(223, 270);
-            this.linkLabelCustomize.Name = "linkLabelCustomize";
-            this.linkLabelCustomize.Size = new System.Drawing.Size(95, 13);
-            this.linkLabelCustomize.TabIndex = 4;
-            this.linkLabelCustomize.TabStop = true;
-            this.linkLabelCustomize.Text = "Customize defaults";
-            this.linkLabelCustomize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomize_LinkClicked);
             // 
             // labelWidthHeight
             // 
@@ -587,13 +609,13 @@
             this.groupBoxOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericClickEachArea)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericDivideIntoEqualAreas)).EndInit();
+            this.groupBoxClickEvery.ResumeLayout(false);
+            this.groupBoxClickEvery.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericDuration)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabBasic.ResumeLayout(false);
             this.tabBasic.PerformLayout();
-            this.groupBoxClickEvery.ResumeLayout(false);
-            this.groupBoxClickEvery.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMax)).EndInit();
             this.tabAdvanced.ResumeLayout(false);
             this.tabAdvanced.PerformLayout();
             this.tabPreview.ResumeLayout(false);

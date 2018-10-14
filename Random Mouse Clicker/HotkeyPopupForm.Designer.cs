@@ -29,22 +29,144 @@
         private void InitializeComponent()
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonSaveSettings = new System.Windows.Forms.Button();
+            this.labelExitProgramShortcut = new System.Windows.Forms.Label();
+            this.checkBoxRestartProgramUsingShortcut = new System.Windows.Forms.CheckBox();
+            this.numericClickEveryMin = new System.Windows.Forms.NumericUpDown();
+            this.labelNumberOfClicksEachTime = new System.Windows.Forms.Label();
+            this.labelExampleShortcut = new System.Windows.Forms.Label();
+            this.labelExampleClicksEachTime = new System.Windows.Forms.Label();
+            this.labelRestartProgramUsingShortcut = new System.Windows.Forms.Label();
+            this.buttonResetSettings = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMin)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(71, 12);
+            this.textBox1.Location = new System.Drawing.Point(145, 12);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(201, 20);
+            this.textBox1.Size = new System.Drawing.Size(148, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            // 
+            // buttonSaveSettings
+            // 
+            this.buttonSaveSettings.Location = new System.Drawing.Point(167, 155);
+            this.buttonSaveSettings.Name = "buttonSaveSettings";
+            this.buttonSaveSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveSettings.TabIndex = 1;
+            this.buttonSaveSettings.Text = "Save";
+            this.buttonSaveSettings.UseVisualStyleBackColor = true;
+            // 
+            // labelExitProgramShortcut
+            // 
+            this.labelExitProgramShortcut.AutoSize = true;
+            this.labelExitProgramShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExitProgramShortcut.Location = new System.Drawing.Point(12, 15);
+            this.labelExitProgramShortcut.Name = "labelExitProgramShortcut";
+            this.labelExitProgramShortcut.Size = new System.Drawing.Size(127, 13);
+            this.labelExitProgramShortcut.TabIndex = 2;
+            this.labelExitProgramShortcut.Text = "Exit program shortcut";
+            // 
+            // checkBoxRestartProgramUsingShortcut
+            // 
+            this.checkBoxRestartProgramUsingShortcut.AutoSize = true;
+            this.checkBoxRestartProgramUsingShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRestartProgramUsingShortcut.Location = new System.Drawing.Point(15, 61);
+            this.checkBoxRestartProgramUsingShortcut.Name = "checkBoxRestartProgramUsingShortcut";
+            this.checkBoxRestartProgramUsingShortcut.Size = new System.Drawing.Size(276, 17);
+            this.checkBoxRestartProgramUsingShortcut.TabIndex = 3;
+            this.checkBoxRestartProgramUsingShortcut.Text = "Restart the program after using exit shortcut";
+            this.checkBoxRestartProgramUsingShortcut.UseVisualStyleBackColor = true;
+            // 
+            // numericClickEveryMin
+            // 
+            this.numericClickEveryMin.Location = new System.Drawing.Point(179, 105);
+            this.numericClickEveryMin.Maximum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            0});
+            this.numericClickEveryMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericClickEveryMin.Name = "numericClickEveryMin";
+            this.numericClickEveryMin.Size = new System.Drawing.Size(79, 20);
+            this.numericClickEveryMin.TabIndex = 6;
+            this.numericClickEveryMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericClickEveryMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // labelNumberOfClicksEachTime
+            // 
+            this.labelNumberOfClicksEachTime.AutoSize = true;
+            this.labelNumberOfClicksEachTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNumberOfClicksEachTime.Location = new System.Drawing.Point(12, 107);
+            this.labelNumberOfClicksEachTime.Name = "labelNumberOfClicksEachTime";
+            this.labelNumberOfClicksEachTime.Size = new System.Drawing.Size(161, 13);
+            this.labelNumberOfClicksEachTime.TabIndex = 7;
+            this.labelNumberOfClicksEachTime.Text = "Number of clicks each time";
+            // 
+            // labelExampleShortcut
+            // 
+            this.labelExampleShortcut.AutoSize = true;
+            this.labelExampleShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExampleShortcut.Location = new System.Drawing.Point(12, 35);
+            this.labelExampleShortcut.Name = "labelExampleShortcut";
+            this.labelExampleShortcut.Size = new System.Drawing.Size(215, 13);
+            this.labelExampleShortcut.TabIndex = 8;
+            this.labelExampleShortcut.Text = "(Click the textbox then hold down your keys)";
+            // 
+            // labelExampleClicksEachTime
+            // 
+            this.labelExampleClicksEachTime.AutoSize = true;
+            this.labelExampleClicksEachTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExampleClicksEachTime.Location = new System.Drawing.Point(12, 128);
+            this.labelExampleClicksEachTime.Name = "labelExampleClicksEachTime";
+            this.labelExampleClicksEachTime.Size = new System.Drawing.Size(266, 13);
+            this.labelExampleClicksEachTime.TabIndex = 10;
+            this.labelExampleClicksEachTime.Text = "(For example, setting this to two performs double clicks)";
+            // 
+            // labelRestartProgramUsingShortcut
+            // 
+            this.labelRestartProgramUsingShortcut.AutoSize = true;
+            this.labelRestartProgramUsingShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRestartProgramUsingShortcut.Location = new System.Drawing.Point(12, 81);
+            this.labelRestartProgramUsingShortcut.Name = "labelRestartProgramUsingShortcut";
+            this.labelRestartProgramUsingShortcut.Size = new System.Drawing.Size(85, 13);
+            this.labelRestartProgramUsingShortcut.TabIndex = 11;
+            this.labelRestartProgramUsingShortcut.Text = "(Recommended)";
+            // 
+            // buttonResetSettings
+            // 
+            this.buttonResetSettings.Location = new System.Drawing.Point(64, 154);
+            this.buttonResetSettings.Name = "buttonResetSettings";
+            this.buttonResetSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonResetSettings.TabIndex = 12;
+            this.buttonResetSettings.Text = "Reset";
+            this.buttonResetSettings.UseVisualStyleBackColor = true;
             // 
             // HotkeyPopupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 112);
+            this.ClientSize = new System.Drawing.Size(304, 187);
+            this.Controls.Add(this.buttonResetSettings);
+            this.Controls.Add(this.labelRestartProgramUsingShortcut);
+            this.Controls.Add(this.labelExampleClicksEachTime);
+            this.Controls.Add(this.labelExampleShortcut);
+            this.Controls.Add(this.labelNumberOfClicksEachTime);
+            this.Controls.Add(this.numericClickEveryMin);
+            this.Controls.Add(this.checkBoxRestartProgramUsingShortcut);
+            this.Controls.Add(this.labelExitProgramShortcut);
+            this.Controls.Add(this.buttonSaveSettings);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -53,6 +175,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Customizable settings";
+            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -61,5 +184,14 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonSaveSettings;
+        private System.Windows.Forms.Label labelExitProgramShortcut;
+        private System.Windows.Forms.CheckBox checkBoxRestartProgramUsingShortcut;
+        private System.Windows.Forms.NumericUpDown numericClickEveryMin;
+        private System.Windows.Forms.Label labelNumberOfClicksEachTime;
+        private System.Windows.Forms.Label labelExampleShortcut;
+        private System.Windows.Forms.Label labelExampleClicksEachTime;
+        private System.Windows.Forms.Label labelRestartProgramUsingShortcut;
+        private System.Windows.Forms.Button buttonResetSettings;
     }
 }
