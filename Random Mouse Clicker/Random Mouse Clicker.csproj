@@ -51,11 +51,11 @@
   <ItemGroup>
     <Compile Include="DeviceInfo.cs" />
     <Compile Include="HotKey.cs" />
-    <Compile Include="HotkeyPopupForm.cs">
+    <Compile Include="CustomizeSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HotkeyPopupForm.Designer.cs">
-      <DependentUpon>HotkeyPopupForm.cs</DependentUpon>
+    <Compile Include="CustomizeSettingsForm.Designer.cs">
+      <DependentUpon>CustomizeSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageSplitter.cs" />
     <Compile Include="MouseLinearSmoothMove.cs" />
@@ -75,8 +75,8 @@
     <Compile Include="SnippingTool.Designer.cs">
       <DependentUpon>SnippingTool.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="HotkeyPopupForm.resx">
-      <DependentUpon>HotkeyPopupForm.cs</DependentUpon>
+    <EmbeddedResource Include="CustomizeSettingsForm.resx">
+      <DependentUpon>CustomizeSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

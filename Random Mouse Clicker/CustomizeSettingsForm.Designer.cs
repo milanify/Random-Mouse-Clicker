@@ -1,6 +1,6 @@
 ﻿namespace Random_Mouse_Clicker
 {
-    partial class HotkeyPopupForm
+    partial class CustomizeSettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxUserDefinedShortcut = new System.Windows.Forms.TextBox();
             this.buttonSaveSettings = new System.Windows.Forms.Button();
             this.labelExitProgramShortcut = new System.Windows.Forms.Label();
             this.checkBoxRestartProgramUsingShortcut = new System.Windows.Forms.CheckBox();
@@ -41,15 +41,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMin)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxUserDefinedShortcut
             // 
-            this.textBox1.Location = new System.Drawing.Point(145, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            this.textBoxUserDefinedShortcut.Location = new System.Drawing.Point(145, 12);
+            this.textBoxUserDefinedShortcut.Name = "textBoxUserDefinedShortcut";
+            this.textBoxUserDefinedShortcut.Size = new System.Drawing.Size(148, 20);
+            this.textBoxUserDefinedShortcut.TabIndex = 0;
+            this.textBoxUserDefinedShortcut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxUserDefinedShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserDefinedShortcut_KeyDown);
             // 
             // buttonSaveSettings
             // 
@@ -167,7 +166,7 @@
             this.Controls.Add(this.checkBoxRestartProgramUsingShortcut);
             this.Controls.Add(this.labelExitProgramShortcut);
             this.Controls.Add(this.buttonSaveSettings);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxUserDefinedShortcut);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -183,7 +182,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxUserDefinedShortcut;
         private System.Windows.Forms.Button buttonSaveSettings;
         private System.Windows.Forms.Label labelExitProgramShortcut;
         private System.Windows.Forms.CheckBox checkBoxRestartProgramUsingShortcut;

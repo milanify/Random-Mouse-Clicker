@@ -418,12 +418,12 @@
             // linkLabelCustomize
             // 
             this.linkLabelCustomize.AutoSize = true;
-            this.linkLabelCustomize.Location = new System.Drawing.Point(217, 270);
+            this.linkLabelCustomize.Location = new System.Drawing.Point(222, 270);
             this.linkLabelCustomize.Name = "linkLabelCustomize";
-            this.linkLabelCustomize.Size = new System.Drawing.Size(95, 13);
+            this.linkLabelCustomize.Size = new System.Drawing.Size(94, 13);
             this.linkLabelCustomize.TabIndex = 4;
             this.linkLabelCustomize.TabStop = true;
-            this.linkLabelCustomize.Text = "Customize defaults";
+            this.linkLabelCustomize.Text = "Customize settings";
             this.toolTip1.SetToolTip(this.linkLabelCustomize, "Change the program settings");
             this.linkLabelCustomize.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomize_LinkClicked);
             // 
@@ -480,6 +480,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(334, 312);
             this.tabControl1.TabIndex = 14;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabBasic
             // 

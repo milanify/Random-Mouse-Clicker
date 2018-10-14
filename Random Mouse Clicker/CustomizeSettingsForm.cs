@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace Random_Mouse_Clicker
 {
-    public partial class HotkeyPopupForm : Form
+    public partial class CustomizeSettingsForm : Form
     {
-        public HotkeyPopupForm()
+        public CustomizeSettingsForm()
         {
             InitializeComponent();
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxUserDefinedShortcut_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Back)
             {
@@ -28,7 +28,7 @@ namespace Random_Mouse_Clicker
                 {
                     //do stuff with pressed and modifier keys
                     var converter = new KeysConverter();
-                    textBox1.Text = converter.ConvertToString(e.KeyData);
+                    textBoxUserDefinedShortcut.Text = converter.ConvertToString(e.KeyData);
                     //At this point, we know a one or more modifiers and another key were pressed
                     //modifierKeys contains the modifiers
                     //pressedKey contains the other pressed key
@@ -40,13 +40,8 @@ namespace Random_Mouse_Clicker
                 e.Handled = false;
                 e.SuppressKeyPress = true;
 
-                textBox1.Text = "";
+                textBoxUserDefinedShortcut.Text = "";
             }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

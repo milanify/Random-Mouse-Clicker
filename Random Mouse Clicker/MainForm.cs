@@ -40,8 +40,6 @@ namespace Random_Mouse_Clicker
             originalFormHeight = this.Height;
             comboBoxClickEvery.SelectedIndex = 1;
             comboBoxDuration.SelectedIndex = 0;
-
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
 
         /**
@@ -147,7 +145,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * For manual, program will only stop when user presses CTRL+WIN+ESC
+         * For manual, program will only stop when user presses the exit hotkey
          * Minimizes form so window is not in the way
          * Performs clicking operations
          * 
@@ -160,7 +158,7 @@ namespace Random_Mouse_Clicker
         {
             if (radioEndManually.Checked)
             {
-                ShowBalloonMessage("Press CTRL+WIN+ESC to exit the program...", "Random Mouse Clicker");
+                ShowBalloonMessage("Press CTRL+WIN+ESC or your user defined hotkey to exit the program...", "Random Mouse Clicker");
                 this.WindowState = FormWindowState.Minimized;
                 clickUntilManuallyEnded();
             }
@@ -171,8 +169,8 @@ namespace Random_Mouse_Clicker
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                ShowBalloonMessage("Program will end after " + numericDuration.Value + " " + comboBoxDuration.Text + " or when CTRL+WIN+ESC is pressed" +
-                    "...", "Random Mouse Clicker");
+                ShowBalloonMessage("Program will end after " + numericDuration.Value + " " + comboBoxDuration.Text + ", or when CTRL+WIN+ESC " +
+                    "or your user defined hotkey is pressed...", "Random Mouse Clicker");
                 this.WindowState = FormWindowState.Minimized;
 
                 if (duration != 0)
@@ -540,7 +538,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Enables form compnents to accomodate ending manually
+         * Enables form components to accomodate ending manually
          * */
         private void setBackToManualEnd()
         {
@@ -608,7 +606,7 @@ namespace Random_Mouse_Clicker
 
         private void linkLabelCustomize_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var form = new HotkeyPopupForm();
+            var form = new CustomizeSettingsForm();
             form.Show(this); // if you need non-modal window
         }
 
