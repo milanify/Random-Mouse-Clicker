@@ -38,9 +38,9 @@ namespace Random_Mouse_Clicker.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int NumberOfClicksEachTime {
+        public decimal NumberOfClicksEachTime {
             get {
-                return ((int)(this["NumberOfClicksEachTime"]));
+                return ((decimal)(this["NumberOfClicksEachTime"]));
             }
             set {
                 this["NumberOfClicksEachTime"] = value;

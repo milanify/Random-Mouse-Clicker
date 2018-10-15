@@ -32,13 +32,12 @@
             this.buttonSaveSettings = new System.Windows.Forms.Button();
             this.labelExitProgramShortcut = new System.Windows.Forms.Label();
             this.checkBoxRestartProgramUsingShortcut = new System.Windows.Forms.CheckBox();
-            this.numericClickEveryMin = new System.Windows.Forms.NumericUpDown();
+            this.numericClickEachTime = new System.Windows.Forms.NumericUpDown();
             this.labelNumberOfClicksEachTime = new System.Windows.Forms.Label();
             this.labelExampleShortcut = new System.Windows.Forms.Label();
             this.labelExampleClicksEachTime = new System.Windows.Forms.Label();
             this.labelRestartProgramUsingShortcut = new System.Windows.Forms.Label();
-            this.buttonResetSettings = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericClickEachTime)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxUserDefinedShortcut
@@ -52,12 +51,13 @@
             // 
             // buttonSaveSettings
             // 
-            this.buttonSaveSettings.Location = new System.Drawing.Point(167, 155);
+            this.buttonSaveSettings.Location = new System.Drawing.Point(115, 152);
             this.buttonSaveSettings.Name = "buttonSaveSettings";
             this.buttonSaveSettings.Size = new System.Drawing.Size(75, 23);
             this.buttonSaveSettings.TabIndex = 1;
             this.buttonSaveSettings.Text = "Save";
             this.buttonSaveSettings.UseVisualStyleBackColor = true;
+            this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click);
             // 
             // labelExitProgramShortcut
             // 
@@ -80,24 +80,24 @@
             this.checkBoxRestartProgramUsingShortcut.Text = "Restart the program after using exit shortcut";
             this.checkBoxRestartProgramUsingShortcut.UseVisualStyleBackColor = true;
             // 
-            // numericClickEveryMin
+            // numericClickEachTime
             // 
-            this.numericClickEveryMin.Location = new System.Drawing.Point(179, 105);
-            this.numericClickEveryMin.Maximum = new decimal(new int[] {
+            this.numericClickEachTime.Location = new System.Drawing.Point(179, 105);
+            this.numericClickEachTime.Maximum = new decimal(new int[] {
             -2147483648,
             0,
             0,
             0});
-            this.numericClickEveryMin.Minimum = new decimal(new int[] {
+            this.numericClickEachTime.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericClickEveryMin.Name = "numericClickEveryMin";
-            this.numericClickEveryMin.Size = new System.Drawing.Size(79, 20);
-            this.numericClickEveryMin.TabIndex = 6;
-            this.numericClickEveryMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericClickEveryMin.Value = new decimal(new int[] {
+            this.numericClickEachTime.Name = "numericClickEachTime";
+            this.numericClickEachTime.Size = new System.Drawing.Size(79, 20);
+            this.numericClickEachTime.TabIndex = 6;
+            this.numericClickEachTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericClickEachTime.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -143,26 +143,16 @@
             this.labelRestartProgramUsingShortcut.TabIndex = 11;
             this.labelRestartProgramUsingShortcut.Text = "(Recommended)";
             // 
-            // buttonResetSettings
-            // 
-            this.buttonResetSettings.Location = new System.Drawing.Point(64, 154);
-            this.buttonResetSettings.Name = "buttonResetSettings";
-            this.buttonResetSettings.Size = new System.Drawing.Size(75, 23);
-            this.buttonResetSettings.TabIndex = 12;
-            this.buttonResetSettings.Text = "Reset";
-            this.buttonResetSettings.UseVisualStyleBackColor = true;
-            // 
-            // HotkeyPopupForm
+            // CustomizeSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 187);
-            this.Controls.Add(this.buttonResetSettings);
             this.Controls.Add(this.labelRestartProgramUsingShortcut);
             this.Controls.Add(this.labelExampleClicksEachTime);
             this.Controls.Add(this.labelExampleShortcut);
             this.Controls.Add(this.labelNumberOfClicksEachTime);
-            this.Controls.Add(this.numericClickEveryMin);
+            this.Controls.Add(this.numericClickEachTime);
             this.Controls.Add(this.checkBoxRestartProgramUsingShortcut);
             this.Controls.Add(this.labelExitProgramShortcut);
             this.Controls.Add(this.buttonSaveSettings);
@@ -170,11 +160,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "HotkeyPopupForm";
+            this.Name = "CustomizeSettingsForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Customizable settings";
-            ((System.ComponentModel.ISupportInitialize)(this.numericClickEveryMin)).EndInit();
+            this.Load += new System.EventHandler(this.CustomizeSettingsForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numericClickEachTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,11 +177,10 @@
         private System.Windows.Forms.Button buttonSaveSettings;
         private System.Windows.Forms.Label labelExitProgramShortcut;
         private System.Windows.Forms.CheckBox checkBoxRestartProgramUsingShortcut;
-        private System.Windows.Forms.NumericUpDown numericClickEveryMin;
+        private System.Windows.Forms.NumericUpDown numericClickEachTime;
         private System.Windows.Forms.Label labelNumberOfClicksEachTime;
         private System.Windows.Forms.Label labelExampleShortcut;
         private System.Windows.Forms.Label labelExampleClicksEachTime;
         private System.Windows.Forms.Label labelRestartProgramUsingShortcut;
-        private System.Windows.Forms.Button buttonResetSettings;
     }
 }

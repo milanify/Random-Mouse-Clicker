@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Random_Mouse_Clicker.Properties;
 
 namespace Random_Mouse_Clicker
 {
@@ -618,7 +619,7 @@ namespace Random_Mouse_Clicker
             hotkey.Control = true;
             hotkey.Windows = true;
             hotkey.KeyCode = Keys.Escape;
-            
+
             hotkey.Pressed += Hk_Win_ESC_OnPressed;
 
             if (!hotkey.GetCanRegister(this))

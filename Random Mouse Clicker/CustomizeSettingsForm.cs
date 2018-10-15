@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Random_Mouse_Clicker.Properties;
 
 namespace Random_Mouse_Clicker
 {
@@ -15,6 +9,13 @@ namespace Random_Mouse_Clicker
         public CustomizeSettingsForm()
         {
             InitializeComponent();
+        }
+
+        private void CustomizeSettingsForm_Load(object sender, EventArgs e)
+        {
+            textBoxUserDefinedShortcut.Text = (String) Settings.Default["ExitProgramHotkey"];
+            checkBoxRestartProgramUsingShortcut.Checked = (bool) Settings.Default["RestartOnExit"];
+            numericClickEachTime.Value = (decimal) Settings.Default["NumberOfClicksEachTime"];
         }
 
         private void textBoxUserDefinedShortcut_KeyDown(object sender, KeyEventArgs e)
@@ -29,6 +30,7 @@ namespace Random_Mouse_Clicker
                     //do stuff with pressed and modifier keys
                     var converter = new KeysConverter();
                     textBoxUserDefinedShortcut.Text = converter.ConvertToString(e.KeyData);
+                    Console.WriteLine(textBoxUserDefinedShortcut.Text);
                     //At this point, we know a one or more modifiers and another key were pressed
                     //modifierKeys contains the modifiers
                     //pressedKey contains the other pressed key
@@ -42,6 +44,15 @@ namespace Random_Mouse_Clicker
 
                 textBoxUserDefinedShortcut.Text = "";
             }
+        }
+
+        private void buttonSaveSettings_Click(object sender, EventArgs e)
+        {
+            Settings.Default["ExitProgramHotkey"] = textBoxUserDefinedShortcut.Text;
+            Settings.Default["RestartOnExit"] = checkBoxRestartProgramUsingShortcut.Checked;
+            Settings.Default["NumberOfClicksEachTime"] = numericClickEachTime.Value;
+            Settings.Default.Save();
+            this.Close();
         }
     }
 }

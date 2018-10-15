@@ -5,7 +5,7 @@
     <Setting Name="ExitProgramHotkey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="NumberOfClicksEachTime" Type="System.Int32" Scope="User">
+    <Setting Name="NumberOfClicksEachTime" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="RestartOnExit" Type="System.Boolean" Scope="User">
