@@ -8,12 +8,20 @@ namespace Random_Mouse_Clicker
     public partial class CustomizeSettingsForm : Form
     {
         private MainForm mainForm;
+        private KeysConverter converter = new KeysConverter();
 
+        /**
+         * Initializes the CustomizeSettingsForm
+         * */
         public CustomizeSettingsForm()
         {
             InitializeComponent();
         }
 
+        /**
+         * Initializes the CustomizeSettingsForm
+         * Sets the reference to the MainForm
+         * */
         public CustomizeSettingsForm(MainForm mainForm)
         {
             InitializeComponent();
@@ -23,7 +31,7 @@ namespace Random_Mouse_Clicker
         private void CustomizeSettingsForm_Load(object sender, EventArgs e)
         {
             textBoxUserDefinedExitShortcut.Text = (String) Settings.Default["ExitProgramHotkey"];
-            textBoxUserDefinedPauseShortcut.Text = (String) Settings.Default["PauseProgramHotkey"];
+            textBoxUserDefinedStartStopShortcut.Text = (String) Settings.Default["StartStopProgramHotkey"];
             numericClickEachTime.Value = (decimal) Settings.Default["NumberOfClicksEachTime"];
         }
 
@@ -32,9 +40,9 @@ namespace Random_Mouse_Clicker
             handleUserInputForShortcuts(sender, e, textBoxUserDefinedExitShortcut);
         }
 
-        private void textBoxUserDefinedPauseShortcut_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxUserDefinedStartStopShortcut_KeyDown(object sender, KeyEventArgs e)
         {
-            handleUserInputForShortcuts(sender, e, textBoxUserDefinedPauseShortcut);
+            handleUserInputForShortcuts(sender, e, textBoxUserDefinedStartStopShortcut);
         }
 
         private void handleUserInputForShortcuts(object sender, KeyEventArgs e, TextBox textbox)
@@ -43,8 +51,7 @@ namespace Random_Mouse_Clicker
             {
                 Keys modifierKeys = e.Modifiers;
                 Keys pressedKey = e.KeyData ^ modifierKeys;
-                KeysConverter converter = new KeysConverter();
-
+                
                 if (modifierKeys != Keys.None && pressedKey != Keys.None)
                 {
                     textbox.Text = converter.ConvertToString(e.KeyData);
@@ -61,14 +68,26 @@ namespace Random_Mouse_Clicker
         private void buttonSaveSettings_Click(object sender, EventArgs e)
         {
             Settings.Default["ExitProgramHotkey"] = textBoxUserDefinedExitShortcut.Text;
-            Settings.Default["PauseProgramHotkey"] = textBoxUserDefinedPauseShortcut.Text;
+            Settings.Default["StartStopProgramHotkey"] = textBoxUserDefinedStartStopShortcut.Text;
             Settings.Default["NumberOfClicksEachTime"] = numericClickEachTime.Value;
             Settings.Default.Save();
-            mainForm.unregisterHotkey(mainForm.userExitHotkey);
-            mainForm.setUserHotKey(mainForm.userExitHotkey, (String)Settings.Default["ExitProgramHotkey"], mainForm.Hk_Exit_OnPressed);
-            mainForm.unregisterHotkey(mainForm.userPauseHotkey);
-            mainForm.setUserHotKey(mainForm.userPauseHotkey, (String)Settings.Default["PauseProgramHotkey"], mainForm.Hk_Pause_OnPressed);
+
+            unregisterOldHotkeys();
+            registerNewHotkeys();
+
             this.Close();
+        }
+
+        private void unregisterOldHotkeys()
+        {
+            mainForm.unregisterHotkey(mainForm.userExitHotkey);
+            mainForm.unregisterHotkey(mainForm.userStartStopHotkey);
+        }
+
+        private void registerNewHotkeys()
+        {
+            mainForm.setUserHotKey(mainForm.userExitHotkey, (String)Settings.Default["ExitProgramHotkey"], null);
+            mainForm.setUserHotKey(mainForm.userStartStopHotkey, (String)Settings.Default["StartStopProgramHotkey"], null);
         }
     }
 }

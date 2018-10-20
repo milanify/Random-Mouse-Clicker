@@ -15,13 +15,12 @@ namespace Random_Mouse_Clicker
         private int x2;
         private int y1;
         private int y2;
-        private Thread thread;
+        private Thread clickingThread;
         private bool widthNotZero;
         private bool heightNotZero;
         private int displayedWidth;
         private int displayedHeight;
         private Point monitorOffset;
-        private bool threadIsSleeping;
         private static Point location;
         private int originalFormWidth;
         private int originalFormHeight;
@@ -31,11 +30,11 @@ namespace Random_Mouse_Clicker
         private readonly Hotkey defaultHotkey = new Hotkey();
 
         public Hotkey userExitHotkey = new Hotkey();
-        public Hotkey userPauseHotkey = new Hotkey();
+        public Hotkey userStartStopHotkey = new Hotkey();
 
         /**
-         * Initialize the MainForm and store width and height information
-         * Set indexes of comboboxes so that they aren't blank
+         * Initializes the MainForm and stores width and height information
+         * Sets default indices of combo boxes so that they aren't blank
          * */
         public MainForm()
         {
@@ -48,29 +47,29 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Once form is loaded, register all hot keys
+         * Once form is loaded, registers all hot keys
          * */
         private void Form1_Load(object sender, EventArgs e)
         {
             setDefaultHotkey();
             setUserHotKey(userExitHotkey, (String)Settings.Default["ExitProgramHotkey"], Hk_Exit_OnPressed);
-            setUserHotKey(userPauseHotkey, (String)Settings.Default["PauseProgramHotkey"], Hk_Pause_OnPressed);
+            setUserHotKey(userStartStopHotkey, (String)Settings.Default["StartStopProgramHotkey"], Hk_Start_Stop_OnPressed);
         }
 
         /**
-         * Start snipping when select area is clicked
-         * Make the start button clickable
+         * Starts snipping when draw area is clicked
+         * Makes the start button clickable
          * */
-        private void selectAreaButton_Click(object sender, EventArgs e)
+        private void drawAreaButton_Click(object sender, EventArgs e)
         {
             SnippingTool.Snip();
             buttonStart.Enabled = true;
         }
 
         /**
-         * When start button clicked, stores rectangle coordinates
-         * x1 and x2 are the upper left and right corner
-         * x1 and x2 are the lower left and right corner
+         * When the start button is clicked, stores the area's rectangle coordinates
+         * x1 and y1 represents the upper left coordinate
+         * x2 and y2 represents the bottom right coordinate
          * checkClickInterval runs to see the time between clicks
          * Checks mouse speed function needed and stores the method to a variable
          * runManualOrAutomatic runs to see how the program will end
@@ -152,8 +151,8 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * For manual, program will only stop when user presses the exit hotkey
-         * Minimizes form so window is not in the way
+         * For manual, program will only stop when the user presses a exit hotkey
+         * Minimizes form so window it's not in the way
          * Performs clicking operations
          * 
          * For automatic, checks the duration from the combo box
@@ -165,7 +164,7 @@ namespace Random_Mouse_Clicker
         {
             if (radioEndManually.Checked)
             {
-                ShowBalloonMessage("Press CTRL+WIN+ESC or your user defined hotkeys to exit/pause the program...", "Random Mouse Clicker");
+                ShowBalloonMessage("Press CTRL+WIN+ESC or your user defined hotkeys to exit/stop the program...", "Random Mouse Clicker");
                 this.WindowState = FormWindowState.Minimized;
                 clickUntilManuallyEnded();
             }
@@ -248,33 +247,30 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Starts a new thread so the hotkeys have no issues communicating with the program
+         * Starts a new thread so the hotkeys have no issues communicating with the main form
          * Runs an infinite loop and performs clicking in random locations
          * */
         private void clickUntilManuallyEnded()
         {
-            thread = new Thread(delegate ()
+            clickingThread = new Thread(delegate ()
             {
-
                 while (true)
                 {
                     randomizeLocationAndClick();
                 }
-
             });
 
-            thread.Start();
+            clickingThread.Start();
         }
 
         /**
-         * Starts a new thread so the hotkeys have no issues communicating with the program
+         * Starts a new thread so the hotkeys have no issues communicating with the main form
          * Runs until the elapsed amount of time exceeds the defined duration
          * */
         private void clickUntilAutomaticallyEnded(decimal duration, Stopwatch stopwatch)
         {
-            thread = new Thread(delegate ()
+            clickingThread = new Thread(delegate ()
             {
-
                 while (true)
                 {
                     if (stopwatch.ElapsedMilliseconds > duration)
@@ -287,10 +283,9 @@ namespace Random_Mouse_Clicker
                         randomizeLocationAndClick();
                     }
                 }
-
             });
 
-            thread.Start();
+            clickingThread.Start();
         }
         
         /**
@@ -346,14 +341,14 @@ namespace Random_Mouse_Clicker
         private void clickAndWait()
         {
             MouseActions.MouseClick();
-            Thread.Sleep(random.Next((int)minMax[0], (int)minMax[1]));
+            Thread.Sleep(random.Next((int)minMax[0], (int)minMax[1]));      
         }
 
         /**
          * Runs if ending automatically from a certain number of clicks
-         * If choosing to divide the region into areas, sets the areas to be clicked
+         * If choosing to divide the region into split areas, sets the areas to be clicked
          * Clicks each area
-         * Otherwise clicks randomly until finished, since not choosing to divide into areas
+         * Otherwise clicks randomly until finished, since not choosing to divide into split areas
          * */
         private void checkForDividedAreas(decimal duration)
         {
@@ -369,24 +364,21 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Clicks until number of clicks is reached
+         * Clicks until number of total clicks is reached
          * Performed when end automatically is checked
          * */
         private void clickUntilFinished(decimal numberOfClicks)
         {
-            thread = new Thread(delegate ()
+            clickingThread = new Thread(delegate ()
             {
-
                 for (int i = 0; i < numberOfClicks; i++)
                 {
                     randomizeLocationAndClick();
                 }
-
                 ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
-
             });
 
-            thread.Start();
+            clickingThread.Start();
         }
 
         /**
@@ -394,23 +386,20 @@ namespace Random_Mouse_Clicker
          * */
         private void clickAllAreas(decimal numberOfClicks)
         {
-            thread = new Thread(delegate ()
+            clickingThread = new Thread(delegate ()
             {
-
                 for (int i = 0; i < numberOfClicks; i++)
                 {
                     randomizeLocationAndClickEachArea();
                 }
-
                 ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
-
             });
 
-            thread.Start();
+            clickingThread.Start();
         }            
 
         /**
-         * When choosing to end manually, disable the automatic duration form components
+         * When choosing to end manually, disables the automatic duration form components
          * */
         private void endManuallyRadio_CheckedChanged(object sender, EventArgs e)
         {
@@ -418,7 +407,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * When choosing to end automatically, enable the automatic duration form components
+         * When choosing to end automatically, enables the automatic duration form components
          * */
         private void endAutomaticallyRadio_CheckedChanged(object sender, EventArgs e)
         {
@@ -426,7 +415,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Set automatic duration form components on or off
+         * Sets automatic duration form components on or off
          * */
         private void setAutomaticDuration(bool b)
         {
@@ -437,12 +426,12 @@ namespace Random_Mouse_Clicker
 
         /**
          * Listener method that runs when a tab is clicked
-         * If basic tab selected, resize form back to original size
-         * If advanced tab selected, set the label and other components accordingly
-         * If the displayed width or height does not match the rectangle, update the display
-         * If preview tab selected, show the user's selection
-         * Resizes the preview tab to display entire image, accounting for the form's borders cutting off part of the image
-         * If splitting the region into areas, the preview tab will show the image with red lines drawn as dividers
+         * If basic tab selected, resizes form back to its original size
+         * If advanced tab selected, sets the label and other components accordingly
+         * If the displayed width or height does not match the rectangle, updates the display
+         * If preview tab selected, shows the user's selection
+         * Resizes the preview tab to display the entire image, accounting for the form's borders cutting off part of the image
+         * If splitting the region into sub-areas, the preview tab will show the image with red lines drawn as dividers
          * */
         private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e)
         {
@@ -498,7 +487,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Make the form go back to its original size
+         * Makes the form go back to its original size
          * Used when going from the preview tab back to the basic or advanced tab
          * */
         private void resizeFormToDefault()
@@ -508,7 +497,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * If choosing to divide region into areas, then enable the advanced form components
+         * If choosing to divide the drawn region into sub-areas, then enables the advanced form components
          * Forces the use of an ending automatically because the user can set the amount of clicks per area
          * When unchecked, sets back to ending manually and disables advanced form components
          * */
@@ -528,7 +517,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Enable the components that divide the region
+         * Enables the components that divide the drawn region
          * */
         private void enableDividedAreas(bool b)
         {
@@ -543,7 +532,7 @@ namespace Random_Mouse_Clicker
 
         /**
          * Sets form components to match ending automatically through a number of clicks
-         * Used when dividing region into areas
+         * Used when dividing the region into sub-areas
          * */
         private void forceAutomaticEnd()
         {          
@@ -580,7 +569,7 @@ namespace Random_Mouse_Clicker
          * Clears combo box of any previous data
          * Adds dimension selection into the combo box
          * Stores the displayed width and height for error checking
-         * Displayed width is always at the beginning of the width array, and height at the end of the height array
+         * The displayed width is always at the beginning of the width array, and height at the end of the height array
          * */
         private void divideIntoEqualAreasDisplay()
         {
@@ -597,7 +586,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-        * When changing the amount of times each area will be clicked, updates the total of clicks
+        * When changing the amount of times each area will be clicked, updates the total number of clicks
         * */
         private void numericClickEachArea_ValueChanged(object sender, EventArgs e)
         {
@@ -605,7 +594,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Updates the total amount of clicks needed for the automatic end
+         * Updates the total amount of clicks needed for ending automatically
          * */
         private int updateTotalClicksDisplay()
         {
@@ -623,7 +612,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-        * Opens the customizable settings form
+        * Opens the CustomizableSettingsForm
         * */
         private void linkLabelCustomize_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -709,23 +698,23 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-        * When a hotkey is pressed, pause/unpause the program
+        * When the start/stop hotkey is pressed, either shutdown the clicking thread or start a new one
         * */
-        public void Hk_Pause_OnPressed(object sender, HandledEventArgs handledEventArgs)
+        public void Hk_Start_Stop_OnPressed(object sender, HandledEventArgs handledEventArgs)
         {
-            /*if(threadIsSleeping)
+            if(buttonStart.Enabled && clickingThread.IsAlive)
             {
-                thread.Interrupt();
+                clickingThread.Abort();
+                ShowBalloonMessage("Program has been stopped, click the start button or press the hotkey again to resume", "Random Mouse Clicker");
             }
-            else
+            else if (buttonStart.Enabled)
             {
-                threadIsSleeping = true;
-                Thread.Sleep(Timeout.Infinite);
-            }     */  
+                startButton_Click(null, null);
+            }
         }
 
         /**
-        * When a hotkey is pressed, exits the program
+        * When the hotkey is pressed, exits the program
         * */
         public void Hk_Exit_OnPressed(object sender, HandledEventArgs handledEventArgs)
         {
@@ -751,7 +740,7 @@ namespace Random_Mouse_Clicker
             notifyIcon.Dispose();
             unregisterHotkey(defaultHotkey);
             unregisterHotkey(userExitHotkey);
-            unregisterHotkey(userPauseHotkey);
+            unregisterHotkey(userStartStopHotkey);
             Application.Exit();
             Environment.Exit(0);
         }

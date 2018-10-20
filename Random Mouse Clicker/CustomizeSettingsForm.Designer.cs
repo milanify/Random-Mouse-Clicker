@@ -35,17 +35,17 @@
             this.labelNumberOfClicksEachTime = new System.Windows.Forms.Label();
             this.labelExampleShortcut = new System.Windows.Forms.Label();
             this.labelExampleClicksEachTime = new System.Windows.Forms.Label();
-            this.labelPauseShortcut = new System.Windows.Forms.Label();
-            this.labelPauseProgramShortcut = new System.Windows.Forms.Label();
-            this.textBoxUserDefinedPauseShortcut = new System.Windows.Forms.TextBox();
+            this.labelStopShortcut = new System.Windows.Forms.Label();
+            this.labelStopProgramShortcut = new System.Windows.Forms.Label();
+            this.textBoxUserDefinedStartStopShortcut = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericClickEachTime)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxUserDefinedExitShortcut
             // 
-            this.textBoxUserDefinedExitShortcut.Location = new System.Drawing.Point(159, 12);
+            this.textBoxUserDefinedExitShortcut.Location = new System.Drawing.Point(132, 12);
             this.textBoxUserDefinedExitShortcut.Name = "textBoxUserDefinedExitShortcut";
-            this.textBoxUserDefinedExitShortcut.Size = new System.Drawing.Size(134, 20);
+            this.textBoxUserDefinedExitShortcut.Size = new System.Drawing.Size(161, 20);
             this.textBoxUserDefinedExitShortcut.TabIndex = 0;
             this.textBoxUserDefinedExitShortcut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxUserDefinedExitShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserDefinedExitShortcut_KeyDown);
@@ -66,9 +66,9 @@
             this.labelExitProgramShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelExitProgramShortcut.Location = new System.Drawing.Point(12, 15);
             this.labelExitProgramShortcut.Name = "labelExitProgramShortcut";
-            this.labelExitProgramShortcut.Size = new System.Drawing.Size(127, 13);
+            this.labelExitProgramShortcut.Size = new System.Drawing.Size(78, 13);
             this.labelExitProgramShortcut.TabIndex = 2;
-            this.labelExitProgramShortcut.Text = "Exit program shortcut";
+            this.labelExitProgramShortcut.Text = "Exit shortcut";
             // 
             // numericClickEachTime
             // 
@@ -123,43 +123,43 @@
             this.labelExampleClicksEachTime.TabIndex = 10;
             this.labelExampleClicksEachTime.Text = "(For example, setting this to two performs double clicks)";
             // 
-            // labelPauseShortcut
+            // labelStopShortcut
             // 
-            this.labelPauseShortcut.AutoSize = true;
-            this.labelPauseShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPauseShortcut.Location = new System.Drawing.Point(12, 82);
-            this.labelPauseShortcut.Name = "labelPauseShortcut";
-            this.labelPauseShortcut.Size = new System.Drawing.Size(207, 13);
-            this.labelPauseShortcut.TabIndex = 13;
-            this.labelPauseShortcut.Text = "(Must be different from the above shortcut)";
+            this.labelStopShortcut.AutoSize = true;
+            this.labelStopShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStopShortcut.Location = new System.Drawing.Point(12, 82);
+            this.labelStopShortcut.Name = "labelStopShortcut";
+            this.labelStopShortcut.Size = new System.Drawing.Size(193, 13);
+            this.labelStopShortcut.TabIndex = 13;
+            this.labelStopShortcut.Text = "(Must be different from the exit shortcut)";
             // 
-            // labelPauseProgramShortcut
+            // labelStopProgramShortcut
             // 
-            this.labelPauseProgramShortcut.AutoSize = true;
-            this.labelPauseProgramShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPauseProgramShortcut.Location = new System.Drawing.Point(12, 62);
-            this.labelPauseProgramShortcut.Name = "labelPauseProgramShortcut";
-            this.labelPauseProgramShortcut.Size = new System.Drawing.Size(141, 13);
-            this.labelPauseProgramShortcut.TabIndex = 12;
-            this.labelPauseProgramShortcut.Text = "Pause program shortcut";
+            this.labelStopProgramShortcut.AutoSize = true;
+            this.labelStopProgramShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStopProgramShortcut.Location = new System.Drawing.Point(12, 62);
+            this.labelStopProgramShortcut.Name = "labelStopProgramShortcut";
+            this.labelStopProgramShortcut.Size = new System.Drawing.Size(114, 13);
+            this.labelStopProgramShortcut.TabIndex = 12;
+            this.labelStopProgramShortcut.Text = "Start/stop shortcut";
             // 
-            // textBoxUserDefinedPauseShortcut
+            // textBoxUserDefinedStartStopShortcut
             // 
-            this.textBoxUserDefinedPauseShortcut.Location = new System.Drawing.Point(159, 59);
-            this.textBoxUserDefinedPauseShortcut.Name = "textBoxUserDefinedPauseShortcut";
-            this.textBoxUserDefinedPauseShortcut.Size = new System.Drawing.Size(134, 20);
-            this.textBoxUserDefinedPauseShortcut.TabIndex = 11;
-            this.textBoxUserDefinedPauseShortcut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxUserDefinedPauseShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserDefinedPauseShortcut_KeyDown);
+            this.textBoxUserDefinedStartStopShortcut.Location = new System.Drawing.Point(132, 59);
+            this.textBoxUserDefinedStartStopShortcut.Name = "textBoxUserDefinedStartStopShortcut";
+            this.textBoxUserDefinedStartStopShortcut.Size = new System.Drawing.Size(161, 20);
+            this.textBoxUserDefinedStartStopShortcut.TabIndex = 11;
+            this.textBoxUserDefinedStartStopShortcut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxUserDefinedStartStopShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserDefinedStartStopShortcut_KeyDown);
             // 
             // CustomizeSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 187);
-            this.Controls.Add(this.labelPauseShortcut);
-            this.Controls.Add(this.labelPauseProgramShortcut);
-            this.Controls.Add(this.textBoxUserDefinedPauseShortcut);
+            this.Controls.Add(this.labelStopShortcut);
+            this.Controls.Add(this.labelStopProgramShortcut);
+            this.Controls.Add(this.textBoxUserDefinedStartStopShortcut);
             this.Controls.Add(this.labelExampleClicksEachTime);
             this.Controls.Add(this.labelExampleShortcut);
             this.Controls.Add(this.labelNumberOfClicksEachTime);
@@ -190,8 +190,8 @@
         private System.Windows.Forms.Label labelNumberOfClicksEachTime;
         private System.Windows.Forms.Label labelExampleShortcut;
         private System.Windows.Forms.Label labelExampleClicksEachTime;
-        private System.Windows.Forms.Label labelPauseShortcut;
-        private System.Windows.Forms.Label labelPauseProgramShortcut;
-        private System.Windows.Forms.TextBox textBoxUserDefinedPauseShortcut;
+        private System.Windows.Forms.Label labelStopShortcut;
+        private System.Windows.Forms.Label labelStopProgramShortcut;
+        private System.Windows.Forms.TextBox textBoxUserDefinedStartStopShortcut;
     }
 }

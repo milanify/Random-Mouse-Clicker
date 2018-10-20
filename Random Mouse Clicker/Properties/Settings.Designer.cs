@@ -50,12 +50,12 @@ namespace Random_Mouse_Clicker.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PauseProgramHotkey {
+        public string StartStopProgramHotkey {
             get {
-                return ((string)(this["PauseProgramHotkey"]));
+                return ((string)(this["StartStopProgramHotkey"]));
             }
             set {
-                this["PauseProgramHotkey"] = value;
+                this["StartStopProgramHotkey"] = value;
             }
         }
     }

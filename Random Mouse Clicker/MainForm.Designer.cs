@@ -93,7 +93,7 @@
             this.buttonDrawArea.Text = "Draw clicking area";
             this.toolTip1.SetToolTip(this.buttonDrawArea, "Draw the area to click within");
             this.buttonDrawArea.UseVisualStyleBackColor = true;
-            this.buttonDrawArea.Click += new System.EventHandler(this.selectAreaButton_Click);
+            this.buttonDrawArea.Click += new System.EventHandler(this.drawAreaButton_Click);
             // 
             // buttonStart
             // 
