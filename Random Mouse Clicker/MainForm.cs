@@ -15,24 +15,27 @@ namespace Random_Mouse_Clicker
         private int x2;
         private int y1;
         private int y2;
+        private Thread thread;
         private bool widthNotZero;
         private bool heightNotZero;
         private int displayedWidth;
         private int displayedHeight;
         private Point monitorOffset;
+        private bool threadIsSleeping;
         private static Point location;
         private int originalFormWidth;
         private int originalFormHeight;
         private Random random = new Random();
         private Action<Point> moveAtMouseSpeed;
         private decimal[] minMax = new decimal[2];
-        private readonly Hotkey hotkey = new Hotkey();
-        public Hotkey userHotkey = new Hotkey();
+        private readonly Hotkey defaultHotkey = new Hotkey();
+
+        public Hotkey userExitHotkey = new Hotkey();
+        public Hotkey userPauseHotkey = new Hotkey();
 
         /**
          * Initialize the MainForm and store width and height information
          * Set indexes of comboboxes so that they aren't blank
-         * Add event listener for when tab is changed
          * */
         public MainForm()
         {
@@ -45,11 +48,13 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Once form is loaded, register the hot key
+         * Once form is loaded, register all hot keys
          * */
         private void Form1_Load(object sender, EventArgs e)
         {
-            RegisterHotKey();
+            setDefaultHotkey();
+            setUserHotKey(userExitHotkey, (String)Settings.Default["ExitProgramHotkey"], Hk_Exit_OnPressed);
+            setUserHotKey(userPauseHotkey, (String)Settings.Default["PauseProgramHotkey"], Hk_Pause_OnPressed);
         }
 
         /**
@@ -160,7 +165,7 @@ namespace Random_Mouse_Clicker
         {
             if (radioEndManually.Checked)
             {
-                ShowBalloonMessage("Press CTRL+WIN+ESC or your user defined hotkey to exit the program...", "Random Mouse Clicker");
+                ShowBalloonMessage("Press CTRL+WIN+ESC or your user defined hotkeys to exit/pause the program...", "Random Mouse Clicker");
                 this.WindowState = FormWindowState.Minimized;
                 clickUntilManuallyEnded();
             }
@@ -171,8 +176,8 @@ namespace Random_Mouse_Clicker
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                ShowBalloonMessage("Program will end after " + numericDuration.Value + " " + comboBoxDuration.Text + ", or when CTRL+WIN+ESC " +
-                    "or your user defined hotkey is pressed...", "Random Mouse Clicker");
+                ShowBalloonMessage("Program will end after " + numericDuration.Value + " " + comboBoxDuration.Text + ", when CTRL+WIN+ESC is pressed, " +
+                    "or when your user defined hotkeys are pressed...", "Random Mouse Clicker");
                 this.WindowState = FormWindowState.Minimized;
 
                 if (duration != 0)
@@ -243,29 +248,32 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Starts a new thread so the hotkey has no issues exiting the program
+         * Starts a new thread so the hotkeys have no issues communicating with the program
          * Runs an infinite loop and performs clicking in random locations
          * */
         private void clickUntilManuallyEnded()
         {
-
-            new Thread(delegate () {
+            thread = new Thread(delegate ()
+            {
 
                 while (true)
                 {
                     randomizeLocationAndClick();
                 }
 
-            }).Start();
+            });
+
+            thread.Start();
         }
 
         /**
-         * Starts a new thread so the hotkey has no issues exiting the program
+         * Starts a new thread so the hotkeys have no issues communicating with the program
          * Runs until the elapsed amount of time exceeds the defined duration
          * */
         private void clickUntilAutomaticallyEnded(decimal duration, Stopwatch stopwatch)
         {
-            new Thread(delegate () {
+            thread = new Thread(delegate ()
+            {
 
                 while (true)
                 {
@@ -280,7 +288,9 @@ namespace Random_Mouse_Clicker
                     }
                 }
 
-            }).Start();
+            });
+
+            thread.Start();
         }
         
         /**
@@ -364,16 +374,19 @@ namespace Random_Mouse_Clicker
          * */
         private void clickUntilFinished(decimal numberOfClicks)
         {
-            new Thread(delegate () {
+            thread = new Thread(delegate ()
+            {
 
                 for (int i = 0; i < numberOfClicks; i++)
                 {
-                    randomizeLocationAndClick();                 
+                    randomizeLocationAndClick();
                 }
 
                 ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
 
-            }).Start();
+            });
+
+            thread.Start();
         }
 
         /**
@@ -381,7 +394,8 @@ namespace Random_Mouse_Clicker
          * */
         private void clickAllAreas(decimal numberOfClicks)
         {
-            new Thread(delegate () {
+            thread = new Thread(delegate ()
+            {
 
                 for (int i = 0; i < numberOfClicks; i++)
                 {
@@ -390,7 +404,9 @@ namespace Random_Mouse_Clicker
 
                 ShowBalloonMessage("Program has finished clicking", "Random Mouse Clicker");
 
-            }).Start();
+            });
+
+            thread.Start();
         }            
 
         /**
@@ -482,7 +498,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Make form go back to the original size
+         * Make the form go back to its original size
          * Used when going from the preview tab back to the basic or advanced tab
          * */
         private void resizeFormToDefault()
@@ -493,8 +509,8 @@ namespace Random_Mouse_Clicker
 
         /**
          * If choosing to divide region into areas, then enable the advanced form components
-         * Forces the use of an automatic end because the user can set the amount of clicks per area
-         * Otherwise when unchecked, sets back to manual end and disables advanced form components
+         * Forces the use of an ending automatically because the user can set the amount of clicks per area
+         * When unchecked, sets back to ending manually and disables advanced form components
          * */
         private void divideIntoEqualAreasCheckbox_CheckedChanged(object sender, EventArgs e)
         {
@@ -589,7 +605,7 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Update the total amount of clicks needed for the automatic end
+         * Updates the total amount of clicks needed for the automatic end
          * */
         private int updateTotalClicksDisplay()
         {
@@ -606,6 +622,9 @@ namespace Random_Mouse_Clicker
             notifyIcon.ShowBalloonTip(1000);
         }
 
+        /**
+        * Opens the customizable settings form
+        * */
         private void linkLabelCustomize_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var form = new CustomizeSettingsForm(this);
@@ -613,40 +632,76 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Registers the hotkey
+         * Sets the default hotkey
          * */
-        private void RegisterHotKey()
+        private void setDefaultHotkey()
         {
-            hotkey.Control = true;
-            hotkey.Windows = true;
-            hotkey.KeyCode = Keys.Escape;
+            defaultHotkey.Control = true;
+            defaultHotkey.Windows = true;
+            defaultHotkey.KeyCode = Keys.Escape;
 
-            hotkey.Pressed += Hk_Win_ESC_OnPressed;
+            defaultHotkey.Pressed += Hk_Exit_OnPressed;
+            registerHotkey(defaultHotkey);
+        }
 
+        /**
+         * Sets the user defined hotkeys
+         * */
+        public void setUserHotKey(Hotkey hotkey, String hotkeyString, HandledEventHandler onPressMethod)
+        {
+            String[] splitHotkeys = hotkeyString.Split('+');
+            Keys keycode;
+
+            foreach (var keyString in splitHotkeys)
+            {
+                Enum.TryParse(keyString, out keycode);
+
+                if (keycode == Keys.Control || keycode == Keys.ControlKey || keycode == Keys.LControlKey || keycode == Keys.RControlKey || keyString.ToUpper().Equals("CTRL"))
+                {
+                    hotkey.Control = true;
+                }
+
+                else if (keycode == Keys.Alt || keyString.ToUpper().Equals("ALT"))
+                {
+                    hotkey.Alt = true;
+                }
+
+                else if (keycode == Keys.Shift || keycode == Keys.ShiftKey || keycode == Keys.LShiftKey || keycode == Keys.RShiftKey || keyString.ToUpper().Equals("SHIFT"))
+                {
+                    hotkey.Shift = true;
+                }
+
+                else
+                {
+                    hotkey.KeyCode = keycode;
+                }
+            }
+
+            hotkey.Pressed += onPressMethod;
+            registerHotkey(hotkey);
+        }
+
+        /**
+         * Registers a specified hotkey
+         * */
+        public bool registerHotkey(Hotkey hotkey)
+        {
             if (!hotkey.GetCanRegister(this))
             {
-                Console.WriteLine("Already registered");
+                return false;
             }
             else
             {
                 hotkey.Register(this);
+                return true;
             }
         }
 
         /**
-         * When hotkey is pressed, exits program and open a new instance of it
+         * Unregisters a specified hotkey
          * */
-        public void Hk_Win_ESC_OnPressed(object sender, HandledEventArgs handledEventArgs)
+        public void unregisterHotkey(Hotkey hotkey)
         {
-            Exit();
-        }
-
-        /**
-         * Unregisters hotkey
-         * */
-        private void UnregisterHotkey()
-        {
-            userHotkey.Unregister();
             if (hotkey.Registered)
             {
                 hotkey.Unregister();
@@ -654,7 +709,31 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-        * Exits program
+        * When a hotkey is pressed, pause/unpause the program
+        * */
+        public void Hk_Pause_OnPressed(object sender, HandledEventArgs handledEventArgs)
+        {
+            /*if(threadIsSleeping)
+            {
+                thread.Interrupt();
+            }
+            else
+            {
+                threadIsSleeping = true;
+                Thread.Sleep(Timeout.Infinite);
+            }     */  
+        }
+
+        /**
+        * When a hotkey is pressed, exits the program
+        * */
+        public void Hk_Exit_OnPressed(object sender, HandledEventArgs handledEventArgs)
+        {
+            Exit();
+        }
+
+        /**
+        * Exits the program
         * */
         private void menuExit_Click_1(object sender, EventArgs e)
         {
@@ -662,15 +741,17 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Hides and removes taskbar icon
-         * Unregisters hotkey from windows
-         * Exits application
+         * Hides and removes the taskbar icon
+         * Unregisters hotkeys
+         * Exits the application
          * */
         public void Exit()
         {
             notifyIcon.Visible = false;
             notifyIcon.Dispose();
-            UnregisterHotkey();
+            unregisterHotkey(defaultHotkey);
+            unregisterHotkey(userExitHotkey);
+            unregisterHotkey(userPauseHotkey);
             Application.Exit();
             Environment.Exit(0);
         }

@@ -49,13 +49,13 @@ namespace Random_Mouse_Clicker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool RestartOnExit {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PauseProgramHotkey {
             get {
-                return ((bool)(this["RestartOnExit"]));
+                return ((string)(this["PauseProgramHotkey"]));
             }
             set {
-                this["RestartOnExit"] = value;
+                this["PauseProgramHotkey"] = value;
             }
         }
     }
