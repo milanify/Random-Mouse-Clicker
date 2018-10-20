@@ -27,6 +27,7 @@ namespace Random_Mouse_Clicker
         private Action<Point> moveAtMouseSpeed;
         private decimal[] minMax = new decimal[2];
         private readonly Hotkey hotkey = new Hotkey();
+        public Hotkey userHotkey = new Hotkey();
 
         /**
          * Initialize the MainForm and store width and height information
@@ -607,8 +608,8 @@ namespace Random_Mouse_Clicker
 
         private void linkLabelCustomize_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var form = new CustomizeSettingsForm();
-            form.Show(this); // if you need non-modal window
+            var form = new CustomizeSettingsForm(this);
+            form.Show();
         }
 
         /**
@@ -635,9 +636,8 @@ namespace Random_Mouse_Clicker
         /**
          * When hotkey is pressed, exits program and open a new instance of it
          * */
-        private void Hk_Win_ESC_OnPressed(object sender, HandledEventArgs handledEventArgs)
+        public void Hk_Win_ESC_OnPressed(object sender, HandledEventArgs handledEventArgs)
         {
-            Application.Restart();
             Exit();
         }
 
@@ -646,6 +646,7 @@ namespace Random_Mouse_Clicker
          * */
         private void UnregisterHotkey()
         {
+            userHotkey.Unregister();
             if (hotkey.Registered)
             {
                 hotkey.Unregister();
@@ -665,7 +666,7 @@ namespace Random_Mouse_Clicker
          * Unregisters hotkey from windows
          * Exits application
          * */
-        private void Exit()
+        public void Exit()
         {
             notifyIcon.Visible = false;
             notifyIcon.Dispose();

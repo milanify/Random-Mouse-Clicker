@@ -119,9 +119,9 @@
             this.labelExampleShortcut.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelExampleShortcut.Location = new System.Drawing.Point(12, 35);
             this.labelExampleShortcut.Name = "labelExampleShortcut";
-            this.labelExampleShortcut.Size = new System.Drawing.Size(215, 13);
+            this.labelExampleShortcut.Size = new System.Drawing.Size(256, 13);
             this.labelExampleShortcut.TabIndex = 8;
-            this.labelExampleShortcut.Text = "(Click the textbox then hold down your keys)";
+            this.labelExampleShortcut.Text = "(Use a combination of Ctrl, Alt, Shift and another key)";
             // 
             // labelExampleClicksEachTime
             // 
