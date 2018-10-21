@@ -15,12 +15,12 @@ namespace Random_Mouse_Clicker
         private int x2;
         private int y1;
         private int y2;
-        private Thread clickingThread;
         private bool widthNotZero;
         private bool heightNotZero;
         private int displayedWidth;
         private int displayedHeight;
         private Point monitorOffset;
+        private Thread clickingThread;
         private static Point location;
         private int originalFormWidth;
         private int originalFormHeight;
@@ -335,12 +335,16 @@ namespace Random_Mouse_Clicker
         }
 
         /**
-         * Performs a mouse click
+         * Performs the number of mouse clicks each time, defined in the user settings
          * Waits for a random amount of time, defined by the user's minimum and maximum
          * */
         private void clickAndWait()
         {
-            MouseActions.MouseClick();
+            for(int i = 0; i < (decimal)Settings.Default["NumberOfClicksEachTime"]; i++)
+            {
+                MouseActions.MouseClick();
+            }
+
             Thread.Sleep(random.Next((int)minMax[0], (int)minMax[1]));      
         }
 
@@ -702,7 +706,7 @@ namespace Random_Mouse_Clicker
         * */
         public void Hk_Start_Stop_OnPressed(object sender, HandledEventArgs handledEventArgs)
         {
-            if(buttonStart.Enabled && clickingThread.IsAlive)
+            if(clickingThread != null && clickingThread.IsAlive)
             {
                 clickingThread.Abort();
                 ShowBalloonMessage("Program has been stopped, click the start button or press the hotkey again to resume", "Random Mouse Clicker");

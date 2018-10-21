@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Random_Mouse_Clicker.Properties;
-using System.ComponentModel;
 
 namespace Random_Mouse_Clicker
 {
@@ -28,6 +27,9 @@ namespace Random_Mouse_Clicker
             this.mainForm = mainForm;
         }
 
+        /**
+         * Once the form is loaded, set all the fields based on the persistent application settings
+         * */
         private void CustomizeSettingsForm_Load(object sender, EventArgs e)
         {
             textBoxUserDefinedExitShortcut.Text = (String) Settings.Default["ExitProgramHotkey"];
@@ -35,16 +37,26 @@ namespace Random_Mouse_Clicker
             numericClickEachTime.Value = (decimal) Settings.Default["NumberOfClicksEachTime"];
         }
 
+        /**
+         * Handles the input for the user defined exit shortcut
+         * */
         private void textBoxUserDefinedExitShortcut_KeyDown(object sender, KeyEventArgs e)
         {
             handleUserInputForShortcuts(sender, e, textBoxUserDefinedExitShortcut);
         }
 
+        /**
+         * Handles the input for the user defined start/stop shortcut
+         * */
         private void textBoxUserDefinedStartStopShortcut_KeyDown(object sender, KeyEventArgs e)
         {
             handleUserInputForShortcuts(sender, e, textBoxUserDefinedStartStopShortcut);
         }
 
+        /**
+         * Deletes the field if the user hits backspace
+         * Parses modifier keys such as Ctrl, Shift, and Alt along with any additional keys pressed
+         * */
         private void handleUserInputForShortcuts(object sender, KeyEventArgs e, TextBox textbox)
         {
             if (e.KeyCode != Keys.Back)
@@ -65,6 +77,11 @@ namespace Random_Mouse_Clicker
             }
         }
 
+        /**
+         * Saves the values of the fields to the persistent settings
+         * Unregisters the previous user hotkeys
+         * Registers the new user hot keys
+         * */
         private void buttonSaveSettings_Click(object sender, EventArgs e)
         {
             Settings.Default["ExitProgramHotkey"] = textBoxUserDefinedExitShortcut.Text;
@@ -78,12 +95,18 @@ namespace Random_Mouse_Clicker
             this.Close();
         }
 
+        /**
+         * Unregister all user defined hot keys
+         * */
         private void unregisterOldHotkeys()
         {
             mainForm.unregisterHotkey(mainForm.userExitHotkey);
             mainForm.unregisterHotkey(mainForm.userStartStopHotkey);
         }
 
+        /**
+         * Register all user defined hot keys
+         * */
         private void registerNewHotkeys()
         {
             mainForm.setUserHotKey(mainForm.userExitHotkey, (String)Settings.Default["ExitProgramHotkey"], null);

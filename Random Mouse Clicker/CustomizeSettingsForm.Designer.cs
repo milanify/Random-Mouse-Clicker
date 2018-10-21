@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBoxUserDefinedExitShortcut = new System.Windows.Forms.TextBox();
             this.buttonSaveSettings = new System.Windows.Forms.Button();
             this.labelExitProgramShortcut = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.labelStopShortcut = new System.Windows.Forms.Label();
             this.labelStopProgramShortcut = new System.Windows.Forms.Label();
             this.textBoxUserDefinedStartStopShortcut = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericClickEachTime)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,6 +50,7 @@
             this.textBoxUserDefinedExitShortcut.Size = new System.Drawing.Size(161, 20);
             this.textBoxUserDefinedExitShortcut.TabIndex = 0;
             this.textBoxUserDefinedExitShortcut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.textBoxUserDefinedExitShortcut, "Hold down all the keys for your shortcut");
             this.textBoxUserDefinedExitShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserDefinedExitShortcut_KeyDown);
             // 
             // buttonSaveSettings
@@ -57,6 +60,7 @@
             this.buttonSaveSettings.Size = new System.Drawing.Size(75, 23);
             this.buttonSaveSettings.TabIndex = 1;
             this.buttonSaveSettings.Text = "Save";
+            this.toolTip1.SetToolTip(this.buttonSaveSettings, "Saves your settings");
             this.buttonSaveSettings.UseVisualStyleBackColor = true;
             this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click);
             // 
@@ -69,6 +73,7 @@
             this.labelExitProgramShortcut.Size = new System.Drawing.Size(78, 13);
             this.labelExitProgramShortcut.TabIndex = 2;
             this.labelExitProgramShortcut.Text = "Exit shortcut";
+            this.toolTip1.SetToolTip(this.labelExitProgramShortcut, "Exits the program");
             // 
             // numericClickEachTime
             // 
@@ -87,6 +92,7 @@
             this.numericClickEachTime.Size = new System.Drawing.Size(79, 20);
             this.numericClickEachTime.TabIndex = 6;
             this.numericClickEachTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.numericClickEachTime, "Must be a positive integer");
             this.numericClickEachTime.Value = new decimal(new int[] {
             1,
             0,
@@ -102,6 +108,7 @@
             this.labelNumberOfClicksEachTime.Size = new System.Drawing.Size(161, 13);
             this.labelNumberOfClicksEachTime.TabIndex = 7;
             this.labelNumberOfClicksEachTime.Text = "Number of clicks each time";
+            this.toolTip1.SetToolTip(this.labelNumberOfClicksEachTime, "Clicks the specified number of times each time");
             // 
             // labelExampleShortcut
             // 
@@ -142,6 +149,7 @@
             this.labelStopProgramShortcut.Size = new System.Drawing.Size(114, 13);
             this.labelStopProgramShortcut.TabIndex = 12;
             this.labelStopProgramShortcut.Text = "Start/stop shortcut";
+            this.toolTip1.SetToolTip(this.labelStopProgramShortcut, "Starts or stops the program");
             // 
             // textBoxUserDefinedStartStopShortcut
             // 
@@ -150,6 +158,7 @@
             this.textBoxUserDefinedStartStopShortcut.Size = new System.Drawing.Size(161, 20);
             this.textBoxUserDefinedStartStopShortcut.TabIndex = 11;
             this.textBoxUserDefinedStartStopShortcut.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolTip1.SetToolTip(this.textBoxUserDefinedStartStopShortcut, "Hold down all the keys for your shortcut");
             this.textBoxUserDefinedStartStopShortcut.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserDefinedStartStopShortcut_KeyDown);
             // 
             // CustomizeSettingsForm
@@ -193,5 +202,6 @@
         private System.Windows.Forms.Label labelStopShortcut;
         private System.Windows.Forms.Label labelStopProgramShortcut;
         private System.Windows.Forms.TextBox textBoxUserDefinedStartStopShortcut;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

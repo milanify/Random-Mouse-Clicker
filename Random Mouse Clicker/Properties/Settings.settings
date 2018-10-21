@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="ExitProgramHotkey" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Ctrl+Shift+Q</Value>
     </Setting>
     <Setting Name="NumberOfClicksEachTime" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="StartStopProgramHotkey" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Ctrl+Shift+S</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -25,7 +25,7 @@ namespace Random_Mouse_Clicker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl+Shift+Q")]
         public string ExitProgramHotkey {
             get {
                 return ((string)(this["ExitProgramHotkey"]));
@@ -49,7 +49,7 @@ namespace Random_Mouse_Clicker.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl+Shift+S")]
         public string StartStopProgramHotkey {
             get {
                 return ((string)(this["StartStopProgramHotkey"]));
