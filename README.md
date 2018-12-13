@@ -4,6 +4,8 @@ Windows form application that randomly auto-clicks within a user defined area
 
 
 ## Current Version: 1.5
+[![Download Random Mouse Clicker](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/random-mouse-clicker/files/latest/download)
+
 [Download the exe file here](https://sourceforge.net/projects/random-mouse-clicker/files/)
 
 ## Features
